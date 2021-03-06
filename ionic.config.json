@@ -1,0 +1,7 @@
+{
+  "name": "instalacionesml-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
