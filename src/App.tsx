@@ -19,14 +19,19 @@ import './theme/variables.css';
 import React from 'react';
 import Menu from './components/Menu';
 import Header from './components/Header';
+import Router from './components/Router';
 
 import {
   IonApp
 } from "@ionic/react";
 
+let title = 'InstalacionesML';
+
 const App: React.FC = () => (
+
   <IonApp>
-    <Header></Header>
+    <Router></Router>
+    <Header title={title}></Header>
     <Menu></Menu>
   </IonApp>
 );
