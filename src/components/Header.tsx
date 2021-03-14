@@ -8,9 +8,11 @@ import {
   IonMenuToggle,
 } from "@ionic/react";
 
-import { menuOutline } from "ionicons/icons";
+import { menuOutline } from 'ionicons/icons';
+import HeaderInterface from '../interfaces/Header';
 
-const Header: React.FC = ({title}) => {
+const Header: React.FC<HeaderInterface> = (props) => {
+
   return (
     <IonHeader>
       <IonToolbar>
@@ -19,7 +21,7 @@ const Header: React.FC = ({title}) => {
             <IonIcon icon={menuOutline}></IonIcon>
           </IonMenuToggle>
         </IonButtons>
-        <IonTitle>{title}</IonTitle>
+        <IonTitle>{props.title}</IonTitle>
       </IonToolbar>
     </IonHeader>
   );

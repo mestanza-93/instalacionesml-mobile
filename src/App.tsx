@@ -17,23 +17,22 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import React from 'react';
-import Menu from './components/Menu';
-import Header from './components/Header';
-import Router from './components/Router';
+import Menu from './pages/Menu';
+import Router from './Router';
 
 import {
   IonApp
 } from "@ionic/react";
 
-let title = 'InstalacionesML';
 
-const App: React.FC = () => (
+const App: React.FC = () => {
 
-  <IonApp>
-    <Router></Router>
-    <Header title={title}></Header>
-    <Menu></Menu>
-  </IonApp>
-);
+  return (
+    <IonApp>
+      <Router></Router>
+      <Menu></Menu>
+    </IonApp>
+  );
+};
 
 export default App;
