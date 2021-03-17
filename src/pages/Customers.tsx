@@ -3,17 +3,18 @@ import { gql, useQuery } from '@apollo/client';
 
 import {
   IonContent,
+  IonItem,
+  IonLabel,
   IonList,
   IonSearchbar,
 } from "@ionic/react";
-import CustomerItem from "../components/CustomerItem";
 import Header from "../components/Header";
+import ItemCustomer from "../components/CustomerItem";
 
 const Customers: React.FC = () => {
   let title = "Clientes";
 
   const [searchText] = useState('');
-  const customerItem = <CustomerItem></CustomerItem>;
 
   function setSearchText(text: String) {
     console.log(text);
@@ -21,7 +22,7 @@ const Customers: React.FC = () => {
 
   const GET_CUSTOMERS = gql`
     {
-      CustomerMany {
+      CustomerMany(limit: 10) {
         name
         lastname
         phone
@@ -31,29 +32,46 @@ const Customers: React.FC = () => {
     }
   `;
 
-  const { loading, error, data } = useQuery(GET_CUSTOMERS);
+  let { loading, error, data } = useQuery(GET_CUSTOMERS);
 
   console.log("LOADING: " + loading);
   console.log("ERROR: " + error);
-  console.log("DATA: " + data);
+
+  var customers = [];
+
+  if (data) {
+    customers = data['CustomerMany'] ?? [];
+  }
+
+  if (customers){
+    return (
+      <IonContent>
+        <Header title={title}></Header>
+        <IonSearchbar animated={true} placeholder="Buscar" value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
+        <IonList>
+          {
+            customers.map((customer: any) => (
+              <ItemCustomer customer={customer}></ItemCustomer>
+            ))
+          }
+        </IonList>
+      </IonContent>
+    );
+  } else {
+    return (
+      <IonContent>
+        <Header title={title}></Header>
+        
+        <IonList>
+          <IonItem>
+            <IonLabel><h1>No hay clientes</h1></IonLabel>
+          </IonItem>
+        </IonList>
+      </IonContent>
+    );
+  } 
 
 
-  return (
-    <IonContent>
-      <Header title={title}></Header>
-      <IonSearchbar animated={true} placeholder="Buscar" value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
-      <IonList>
-        {customerItem}
-        {customerItem}
-        {customerItem}
-        {customerItem}
-        {customerItem}
-        {customerItem}
-        {customerItem}
-        {customerItem}
-      </IonList>
-    </IonContent>
-  );
 };
 
 export default Customers;

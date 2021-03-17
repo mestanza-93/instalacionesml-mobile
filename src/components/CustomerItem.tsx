@@ -1,25 +1,19 @@
 import React, { useState } from "react";
 import { IonIcon, IonItem, IonLabel } from "@ionic/react";
 import { personOutline } from "ionicons/icons";
+import CustomerItemInterface from '../interfaces/CustomerItem';
 
-const ItemCustomer: React.FC = () => {
-
-  let data = {
-    name: 'Antonio',
-    lastname: 'Fernández Luque',
-    address: 'C/ Avenida Gerald Brenan',
-    date: '12 marzo 2021'
-  };
+const ItemCustomer: React.FC<CustomerItemInterface> = (props) => {
 
   return (
     <IonItem>
       <IonIcon icon={personOutline} slot="start"></IonIcon>
       <IonLabel>
-        <h2>{data.name} {data.lastname}</h2>
-        <h3>{data.address}</h3>
+        <h2>{props.customer.name} {props.customer.lastname}</h2>
+        <h3>{props.customer.address}</h3>
       </IonLabel>
       <IonLabel position="fixed">
-        <p>{data.date}</p>
+        <p>{props.customer.updated_at}</p>
       </IonLabel>
     </IonItem>
   );
