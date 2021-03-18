@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { IonIcon, IonItem, IonLabel } from "@ionic/react";
 import { personOutline } from "ionicons/icons";
 import CustomerItemInterface from '../interfaces/CustomerItem';

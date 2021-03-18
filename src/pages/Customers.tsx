@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { gql, useQuery } from '@apollo/client';
 
 import {
   IonContent,
@@ -11,6 +10,8 @@ import {
 import Header from "../components/Header";
 import ItemCustomer from "../components/CustomerItem";
 
+import CustomerModel from '../models/Customer';
+
 const Customers: React.FC = () => {
   let title = "Clientes";
 
@@ -20,28 +21,13 @@ const Customers: React.FC = () => {
     console.log(text);
   }
 
-  const GET_CUSTOMERS = gql`
-    {
-      CustomerMany(limit: 10) {
-        name
-        lastname
-        phone
-        address
-        town
-      }
-    }
-  `;
+  var limit = 0;
+  var order = {
+    field: 'updated_date',
+    type: 'desc'
+  };
 
-  let { loading, error, data } = useQuery(GET_CUSTOMERS);
-
-  console.log("LOADING: " + loading);
-  console.log("ERROR: " + error);
-
-  var customers = [];
-
-  if (data) {
-    customers = data['CustomerMany'] ?? [];
-  }
+  var customers = CustomerModel.GetCustomers(limit, order) ?? [];
 
   if (customers){
     return (
