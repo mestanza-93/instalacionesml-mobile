@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   IonContent,
@@ -9,34 +9,46 @@ import {
 } from "@ionic/react";
 import Header from "../components/Header";
 import ItemCustomer from "../components/CustomerItem";
-
 import CustomerModel from '../models/Customer';
+import CustomerInterface from '../interfaces/Customer';
 
 const Customers: React.FC = () => {
+  
   let title = "Clientes";
+  let limit = 25;
+  let sort = 'NAME_ASC';
 
-  const [searchText] = useState('');
+  const customers = CustomerModel.GetCustomers(limit, sort) ?? [];
 
-  function setSearchText(text: String) {
-    console.log(text);
-  }
+  const [searchText, setSearchText] = useState('');
+  const [searchCustomers, setSearchCustomers] = useState([]);
 
-  var limit = 0;
-  var order = {
-    field: 'updated_date',
-    type: 'desc'
+  const handleChange = (text: string) => {
+    setSearchText(text);
   };
 
-  var customers = CustomerModel.GetCustomers(limit, order) ?? [];
+  useEffect(() => {
+    const results = customers.filter((item: CustomerInterface) => 
+      (
+        (item.name.toLowerCase().includes(searchText.toLowerCase())) || 
+        (item.lastname.toLowerCase().includes(searchText.toLowerCase())) ||
+        (item.address.toLowerCase().includes(searchText.toLowerCase())) ||
+        (item.town.toLowerCase().includes(searchText.toLowerCase()))
+      )
+    );
+        
+    setSearchCustomers(results);
+  }, [searchText]);
+
 
   if (customers){
     return (
       <IonContent>
         <Header title={title}></Header>
-        <IonSearchbar animated={true} placeholder="Buscar" value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
+        <IonSearchbar animated={true} placeholder="Buscar" value={searchText} onIonChange={e => handleChange(e.detail.value!)}></IonSearchbar>
         <IonList>
           {
-            customers.map((customer: any) => (
+            searchCustomers.map((customer: any) => (
               <ItemCustomer customer={customer}></ItemCustomer>
             ))
           }
@@ -56,8 +68,6 @@ const Customers: React.FC = () => {
       </IonContent>
     );
   } 
-
-
 };
 
 export default Customers;

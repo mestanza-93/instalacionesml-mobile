@@ -27,15 +27,16 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 const App: React.FC = () => {
 
   const client = new ApolloClient({
-    uri: constants.API_URL_LOCAL,
-    cache: new InMemoryCache(),
+    uri: process.env.NODE_ENV == 'development' ? constants.API_URL_LOCAL : constants.API_URL,
+    cache: new InMemoryCache()    
   });
+
+  console.log('APP');
 
   return (
     <IonApp>
       <ApolloProvider client={client}>
         <Router></Router>
-        <Menu></Menu>
       </ApolloProvider>
     </IonApp>
   );

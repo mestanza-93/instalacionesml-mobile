@@ -1,12 +1,18 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
+import ModelHelper from '../helpers/ModelHelper';
 
-const GetCustomers = (limit: Number, order: {}) => {
+const GetCustomers = (limit: Number, sort: String) => {
 
-  var limitQuery = limit ? `(limit: ${limit})` : '';
+  var filters = {
+    limit: limit,
+    sort: sort
+  }
+
+  var filtersQuery = ModelHelper.GetFilters(filters);
 
   const query = gql`
     {
-      CustomerMany ${limitQuery} {
+      CustomerMany ${filtersQuery} {
         name
         lastname
         phone

@@ -3,9 +3,9 @@ interface CustomerItemInterface {
       name: string;
       lastname: string;
       address: string;
-      phone: Number;
+      phone: number;
       town: string;
-      updated_at: Date;
+      updated_at: string;
     }
   }
   
