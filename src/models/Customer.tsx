@@ -13,17 +13,19 @@ const GetCustomers = (limit: Number, sort: String) => {
   const query = gql`
     {
       CustomerMany ${filtersQuery} {
+        _id
         name
         lastname
         phone
         address
+        postalcode
         town
         updated_at
       }
     }
   `;
 
-  let { data } = useQuery(query);
+  const { data } = useQuery(query);
 
   var customers = [];
 

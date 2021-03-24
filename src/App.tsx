@@ -31,8 +31,6 @@ const App: React.FC = () => {
     cache: new InMemoryCache()    
   });
 
-  console.log('APP');
-
   return (
     <IonApp>
       <ApolloProvider client={client}>

@@ -8,13 +8,10 @@ import Customer from "../pages/CustomerProfile";
 import Customers from "../pages/Customers";
 
 const Router: React.FC = () => {
-
-  console.log('Router');
-
   return (
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/customer" component={Customer} />
+        <Route exact path="/customer/:id" component={Customer} />
         <Route exact path="/customers" component={Customers} />
         <Route exact path="/" render={() => <Redirect to="/customers" />} />
       </IonRouterOutlet>

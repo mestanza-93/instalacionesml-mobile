@@ -12,30 +12,41 @@ import ItemCustomer from "../components/CustomerItem";
 import CustomerModel from '../models/Customer';
 import CustomerInterface from '../interfaces/Customer';
 
+let title = "Clientes";
+let limit = 5000;
+let showLimit = 25;
+let sort = 'NAME_ASC';
+
 const Customers: React.FC = () => {
-  
-  let title = "Clientes";
-  let limit = 25;
-  let sort = 'NAME_ASC';
 
   const customers = CustomerModel.GetCustomers(limit, sort) ?? [];
-
+  
   const [searchText, setSearchText] = useState('');
-  const [searchCustomers, setSearchCustomers] = useState([]);
+  const [searchCustomers, setSearchCustomers] = useState(customers.slice(0, showLimit));
 
   const handleChange = (text: string) => {
     setSearchText(text);
   };
 
   useEffect(() => {
-    const results = customers.filter((item: CustomerInterface) => 
-      (
-        (item.name.toLowerCase().includes(searchText.toLowerCase())) || 
-        (item.lastname.toLowerCase().includes(searchText.toLowerCase())) ||
-        (item.address.toLowerCase().includes(searchText.toLowerCase())) ||
-        (item.town.toLowerCase().includes(searchText.toLowerCase()))
-      )
-    );
+
+    let results = Array;
+
+    if (searchText == '') {
+      results = customers.slice(0, showLimit);
+
+    } else {
+      results = customers.filter((item: CustomerInterface) => 
+        (
+          (item.name.toLowerCase().includes(searchText.toLowerCase())) || 
+          (item.lastname.toLowerCase().includes(searchText.toLowerCase())) ||
+          (item.address.toLowerCase().includes(searchText.toLowerCase())) ||
+          (item.town.toLowerCase().includes(searchText.toLowerCase())) ||
+          (item.phone && item.phone.toString().includes(searchText.toLowerCase())) ||
+          (item.postalcode && item.postalcode.toString().includes(searchText.toLowerCase()))
+        )
+      );
+    }
         
     setSearchCustomers(results);
   }, [searchText]);

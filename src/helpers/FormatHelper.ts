@@ -1,7 +1,7 @@
 const FormatDate = (date: string) => {
 
-  var formatted = '';
-  var dateObject = new Date(date);
+  let formatted = '';
+  let dateObject = new Date(date);
 
   formatted = new Intl.DateTimeFormat("es-ES", {
     year: "numeric",
@@ -14,7 +14,7 @@ const FormatDate = (date: string) => {
 
 const FormatCurrency = (currency: number) => {
 
-  var formatted = '';
+  let formatted = '';
 
   if (currency > 0) {
     formatted = new Intl.NumberFormat("es-ES", {
