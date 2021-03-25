@@ -20,9 +20,12 @@ let sort = 'NAME_ASC';
 const Customers: React.FC = () => {
 
   const customers = CustomerModel.GetCustomers(limit, sort) ?? [];
-  
   const [searchText, setSearchText] = useState('');
   const [searchCustomers, setSearchCustomers] = useState(customers.slice(0, showLimit));
+
+  if (customers.length && !searchCustomers.length) {
+    setSearchCustomers(customers.slice(0, showLimit));
+  }
 
   const handleChange = (text: string) => {
     setSearchText(text);
@@ -47,8 +50,11 @@ const Customers: React.FC = () => {
         )
       );
     }
-        
-    setSearchCustomers(results);
+
+    if (results.length) {
+      setSearchCustomers(results);
+    }
+
   }, [searchText]);
 
 
