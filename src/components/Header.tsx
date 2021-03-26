@@ -8,20 +8,19 @@ import {
   IonMenuToggle,
 } from "@ionic/react";
 
-import { menuOutline } from 'ionicons/icons';
-import HeaderInterface from '../interfaces/Header';
+import { menuOutline } from "ionicons/icons";
+import HeaderInterface from "../interfaces/Header";
 
 const Header: React.FC<HeaderInterface> = (props) => {
-
   return (
     <IonHeader>
-      <IonToolbar>
+      <IonToolbar color="primary">
         <IonButtons slot="start">
           <IonMenuToggle autoHide={false}>
             <IonIcon icon={menuOutline}></IonIcon>
           </IonMenuToggle>
         </IonButtons>
-        <IonTitle>{props.title}</IonTitle>
+        <IonTitle className="ion-text-center">{props.title}</IonTitle>
       </IonToolbar>
     </IonHeader>
   );

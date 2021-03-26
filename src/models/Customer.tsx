@@ -48,6 +48,7 @@ const GetCustomerById = (id: string) => {
         _id
         name
         lastname
+        email
         phone
         phone2
         dni

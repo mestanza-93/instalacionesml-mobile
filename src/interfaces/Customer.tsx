@@ -3,6 +3,7 @@ interface CustomerInterface {
   name: string;
   lastname: string;
   address: string;
+  email: string;
   phone: number;
   phone2: number;
   postalcode: number;
