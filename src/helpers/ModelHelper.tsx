@@ -21,4 +21,16 @@ const GetFilters = (filters: FilterInterface) => {
 
 };
 
-export default {GetFilters};
+const FilterId = (id: string) => {
+
+  var result = '';
+
+  if (id) {
+    result = `(_id: "${id}")`;
+  }
+
+  return result;
+
+}
+
+export default {GetFilters, FilterId};

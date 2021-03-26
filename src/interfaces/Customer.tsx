@@ -4,8 +4,10 @@ interface CustomerInterface {
   lastname: string;
   address: string;
   phone: number;
+  phone2: number;
   postalcode: number;
   town: string;
+  dni: string;
   updated_at: string;
 }
 
