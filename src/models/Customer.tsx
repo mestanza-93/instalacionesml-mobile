@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import ModelHelper from '../helpers/ModelHelper';
+import CustomerInterface from '../interfaces/Customer';
 
 const GetCustomers = (limit: Number, sort: String) => {
 
@@ -69,4 +70,37 @@ const GetCustomerById = (id: string) => {
   return customer;
 }
 
-export default {GetCustomers, GetCustomerById};
+const UpdateCustomer = (customer: CustomerInterface) => {
+
+  let response = '';
+
+  const query = gql`
+    mutation {
+      CustomerUpdateById(_id: "${customer._id}",
+        record: {
+          name: "${customer.name}",
+          lastname: "${customer.lastname}",
+          phone: ${customer.phone},
+          phone2: ${customer.phone2},
+          dni: "${customer.dni}",
+          email: "${customer.email}",
+          postalcode: ${customer.postalcode},
+          address: "${customer.address}",
+          town: "${customer.town}"
+        }
+      ) {
+        recordId
+      }
+    }
+  `;
+
+  const { data } = useQuery(query);
+
+  if (data) {
+    response = data['CustomerUpdateById']['recordId'] ?? '';
+  }
+  
+  return response;
+}
+
+export default {GetCustomers, GetCustomerById, UpdateCustomer};
