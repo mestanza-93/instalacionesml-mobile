@@ -8,7 +8,7 @@ import {
   IonLabel,
 } from "@ionic/react";
 import { useParams } from "react-router";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import Header from "../components/Header";
 import CustomerModel from "../models/Customer";
 import ParamsInterface from "../interfaces/UrlParams";
@@ -36,142 +36,131 @@ const CustomerProfile: React.FC = () => {
   data = id ? CustomerModel.GetCustomerById(id) ?? {} : {};
   const [customer, setCustomer] = useState(data);
 
-  if (Object.keys(data).length > 0 && Object.keys(customer).length === 0) {
-    setCustomer(data);
-  }
-
   /**
    * Form control
    */
-  const { control, handleSubmit, formState, reset } = useForm({
-    defaultValues: data
+  const { handleSubmit, setValue } = useForm<CustomerInterface>({
+    defaultValues: { ...data },
+    mode: "onSubmit",
   });
 
-  const onSubmit = (formData: CustomerInterface) => {
-    console.log("Form submitted");
-    console.log(formData);
-  };
+  /**
+   * Initialize form
+   */
+  if (Object.keys(data).length > 0 && Object.keys(customer).length === 0) {
+    setCustomer(data);
+    setValue("name", data.name ?? "");
+    setValue("lastname", data.lastname ?? "");
+    setValue("phone", data.phone ?? "");
+    setValue("phone2", data.phone2 ?? "");
+    setValue("email", data.email ?? "");
+    setValue("dni", data.dni ?? "");
+    setValue("postalcode", data.postalcode ?? "");
+    setValue("address", data.address ?? "");
+    setValue("town", data.town ?? "");
+  }
+
+  /**
+   * Process submit form
+   */
+  const onSubmit = handleSubmit((formData) => {
+    formData._id = data._id;
+    CustomerModel.UpdateCustomer(formData);
+  });
 
   return (
     <IonContent>
       <Header title={title}></Header>
-      <form className="ion-padding" onSubmit={handleSubmit(onSubmit)}>
+      <form className="ion-padding" onSubmit={onSubmit}>
         <IonItem>
           <IonIcon slot="start" icon={peopleOutline}></IonIcon>
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.name ?? ""}
-                placeholder="Nombre"
-              ></IonInput>
-            )}
-            control={control}
-            name="name"
-          />
+          <IonInput
+            value={customer.name ?? ""}
+            placeholder="Nombre"
+            onIonChange={(e): void => {
+              setValue("name", e.detail.value ?? "");
+            }}
+          ></IonInput>
         </IonItem>
 
         <IonItem>
           <IonIcon slot="start" icon={peopleOutline}></IonIcon>
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.lastname ?? ""}
-                placeholder="Apellidos"
-              ></IonInput>
-            )}
-            control={control}
-            name="lastname"
-          />
+          <IonInput
+            value={customer.lastname ?? ""}
+            placeholder="Apellidos"
+            onIonChange={(e): void => {
+              setValue("lastname", e.detail.value ?? "");
+            }}
+          ></IonInput>
         </IonItem>
 
         <IonItem>
           <IonIcon slot="start" icon={callOutline}></IonIcon>
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.phone ?? ""}
-                placeholder="Teléfono"
-              ></IonInput>
-            )}
-            control={control}
-            name="phone"
-          />
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.phone2 ?? ""}
-                placeholder="Teléfono 2"
-              ></IonInput>
-            )}
-            control={control}
-            name="phone2"
-          />
+          <IonInput
+            value={customer.phone ?? ""}
+            placeholder="Teléfono"
+            onIonChange={(e): void => {
+              setValue("phone", Number(e.detail.value ?? ""));
+            }}
+          ></IonInput>
+          <IonInput
+            value={customer.phone2 ?? ""}
+            placeholder="Teléfono 2"
+            onIonChange={(e): void => {
+              setValue("phone2", Number(e.detail.value ?? ""));
+            }}
+          ></IonInput>
         </IonItem>
 
         <IonItem>
           <IonIcon slot="start" icon={mailOutline}></IonIcon>
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.email ?? ""}
-                placeholder="Email"
-              ></IonInput>
-            )}
-            control={control}
-            name="email"
-          />
+          <IonInput
+            value={customer.email ?? ""}
+            placeholder="Email"
+            onIonChange={(e): void => {
+              setValue("email", e.detail.value ?? "");
+            }}
+          ></IonInput>
         </IonItem>
 
         <IonItem>
           <IonIcon slot="start" icon={cardOutline}></IonIcon>
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.dni ?? ""}
-                placeholder="DNI - NIF"
-              ></IonInput>
-            )}
-            control={control}
-            name="dni"
-          />
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.postalcode ?? ""}
-                placeholder="Código postal"
-              ></IonInput>
-            )}
-            control={control}
-            name="postalcode"
-          />
+          <IonInput
+            value={customer.dni ?? ""}
+            placeholder="DNI - NIF"
+            onIonChange={(e): void => {
+              setValue("dni", e.detail.value ?? "");
+            }}
+          ></IonInput>
+          <IonInput
+            value={customer.postalcode ?? ""}
+            placeholder="Código postal"
+            onIonChange={(e): void => {
+              setValue("postalcode", Number(e.detail.value ?? ""));
+            }}
+          ></IonInput>
         </IonItem>
 
         <IonItem>
           <IonIcon slot="start" icon={homeOutline}></IonIcon>
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.address ?? ""}
-                placeholder="Dirección"
-              ></IonInput>
-            )}
-            control={control}
-            name="address"
-          />
+          <IonInput
+            value={customer.address ?? ""}
+            placeholder="Dirección"
+            onIonChange={(e): void => {
+              setValue("address", e.detail.value ?? "");
+            }}
+          ></IonInput>
         </IonItem>
 
         <IonItem>
           <IonIcon slot="start" icon={mapOutline}></IonIcon>
-          <Controller
-            render={() => (
-              <IonInput
-                value={customer.town ?? ""}
-                placeholder="Población"
-              ></IonInput>
-            )}
-            control={control}
-            name="town"
-          />
+          <IonInput
+            value={customer.town ?? ""}
+            placeholder="Población"
+            onIonChange={(e): void => {
+              setValue("town", e.detail.value ?? "");
+            }}
+          ></IonInput>
         </IonItem>
 
         <IonItem className="ion-text-center" lines="none">
