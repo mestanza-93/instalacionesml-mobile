@@ -72,26 +72,6 @@ const UpdateCustomer = (customer: CustomerInterface) => {
 
   console.log(customer);
 
-  // const query = gql`
-  //   mutation {
-  //     CustomerUpdateById(_id: "${customer._id}",
-  //       record: {
-  //         name: "${customer.name}",
-  //         lastname: "${customer.lastname}",
-  //         phone: ${customer.phone},
-  //         phone2: ${customer.phone2},
-  //         dni: "${customer.dni}",
-  //         email: "${customer.email}",
-  //         postalcode: ${customer.postalcode},
-  //         address: "${customer.address}",
-  //         town: "${customer.town}"
-  //       }
-  //     ) {
-  //       recordId
-  //     }
-  //   }
-  // `;
-
   const query = gql`
     mutation CustomerUpdateById(
       $_id: String!
