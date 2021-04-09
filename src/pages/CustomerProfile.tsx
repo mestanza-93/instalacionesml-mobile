@@ -24,9 +24,10 @@ const CustomerProfile: React.FC = () => {
   data = id ? CustomerModel.GetCustomerById(id) ?? {} : {};
 
   /**
-   * Initialize form
+   * Initialize form data
    */
   if (Object.keys(data).length > 0 && Object.keys(customer).length === 0) {
+    data = {...data, ...{action:'edit'}};
     setCustomer(data);
   }
 

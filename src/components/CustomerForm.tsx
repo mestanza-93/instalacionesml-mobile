@@ -13,16 +13,22 @@ import CustomerInterface from "../interfaces/Customer";
 import "../theme/customer-profile.css";
 
 const CustomerForm: React.FC<CustomerInterface> = (props) => {
-  let data = {} as CustomerInterface;
-
   const { handleSubmit, setValue } = useForm<CustomerInterface>({
-    defaultValues: { ...data },
+    defaultValues: { ...props },
     mode: "onSubmit",
   });
 
   const onSubmit = handleSubmit((formData) => {
-    formData._id = data._id;
-    CustomerModel.UpdateCustomer(formData);
+    if (props.action == "edit") {
+      formData._id = props._id;
+      CustomerModel.UpdateCustomer(formData);
+    } else {
+      /**
+       * Change to create new user
+       */
+      formData._id = props._id;
+      CustomerModel.UpdateCustomer(formData);
+    }
   });
 
   return (

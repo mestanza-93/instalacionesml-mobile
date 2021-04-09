@@ -71,7 +71,7 @@ const UpdateCustomer = (customer: CustomerInterface) => {
   let response = "";
 
   console.log(customer);
-
+  
   const query = gql`
     mutation CustomerUpdateById(
       $_id: String!
@@ -108,6 +108,9 @@ const UpdateCustomer = (customer: CustomerInterface) => {
     updateCustomer,
     { loading: updating, error: updateError },
   ] = useMutation(query);
+
+  console.log("Loading: " + updating);
+  console.log("Error: " + updateError);
 
   updateCustomer({
     variables: {

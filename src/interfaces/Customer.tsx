@@ -10,6 +10,7 @@ interface CustomerInterface {
   town: string;
   dni: string;
   updated_at: string;
+  action: string;
 }
 
 export default CustomerInterface;
