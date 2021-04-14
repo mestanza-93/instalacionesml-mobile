@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import CustomerModel from "../models/Customer";
 import CustomerInterface from "../interfaces/Customer";
 import "../theme/customer-profile.css";
+import { useMutation } from "@apollo/client";
 
 const CustomerForm: React.FC<CustomerInterface> = (props) => {
   const { handleSubmit, setValue } = useForm<CustomerInterface>({
@@ -18,16 +19,29 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
     mode: "onSubmit",
   });
 
+  const [
+    updateHandler,
+  ] = useMutation(CustomerModel.UpdateCustomer(), {
+    onCompleted:(data) => {
+      /**
+       * Change to States
+       */
+      window.location.reload();
+    }
+  });
+
   const onSubmit = handleSubmit((formData) => {
+
     if (props.action == "edit") {
       formData._id = props._id;
-      CustomerModel.UpdateCustomer(formData);
+      updateHandler({ variables: formData });
+
     } else {
       /**
        * Change to create new user
        */
       formData._id = props._id;
-      CustomerModel.UpdateCustomer(formData);
+      updateHandler({ variables: formData });
     }
   });
 

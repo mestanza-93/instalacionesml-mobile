@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import ModelHelper from "../helpers/ModelHelper";
 import CustomerInterface from "../interfaces/Customer";
 
@@ -67,69 +67,46 @@ const GetCustomerById = (id: string) => {
   return customer;
 };
 
-const UpdateCustomer = (customer: CustomerInterface) => {
-  let response = "";
+const UpdateCustomer = () => {
 
-  console.log(customer);
-  
   const query = gql`
     mutation CustomerUpdateById(
-      $_id: String!
-      $name: String
-      $lastname: String
-      $phone: Int
-      $phone2: String
-      $dni: String
-      $email: String
-      $postalcode: Int
-      $address: String
+      $_id: String!,
+      $name: String,
+      $lastname: String,
+      $phone: Float,
+      $phone2: Float,
+      $dni: String,
+      $email: String,
+      $postalcode: Float,
+      $address: String,
       $town: String
     ) {
       CustomerUpdateById(
-        where: { _id: { _eq: $_id } }
-        _set: {
-          name: $name
-          lastname: $lastname
-          phone: $phone
-          phone2: $phone2
-          dni: $dni
-          email: $email
-          postalcode: $postalcode
-          address: $address
+        _id: $_id,
+        record: {
+          name: $name,
+          lastname: $lastname,
+          phone: $phone,
+          phone2: $phone2,
+          dni: $dni,
+          email: $email,
+          postalcode: $postalcode,
+          address: $address,
           town: $town
         }
-      )
+      ) {
+        recordId
+      }
     }
   `;
 
-  console.log("Query: " + query);
-
-  const [
-    updateCustomer,
-    { loading: updating, error: updateError },
-  ] = useMutation(query);
-
-  console.log("Loading: " + updating);
-  console.log("Error: " + updateError);
-
-  updateCustomer({
-    variables: {
-      _id: customer._id,
-      name: customer.name,
-      lastname: customer.lastname,
-      phone: customer.phone,
-      phone2: customer.phone2,
-      dni: customer.dni,
-      email: customer.email,
-      postalcode: customer.postalcode,
-      address: customer.address,
-      town: customer.town,
-    },
-  });
-
-  console.log("UPDATE CUSTOMER: " + updateCustomer);
-
-  return response;
+  return query;
 };
 
-export default { GetCustomers, GetCustomerById, UpdateCustomer };
+
+export default {
+  GetCustomers,
+  GetCustomerById,
+  UpdateCustomer
+};
