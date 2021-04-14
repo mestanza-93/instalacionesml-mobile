@@ -1,6 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
 import ModelHelper from "../helpers/ModelHelper";
-import CustomerInterface from "../interfaces/Customer";
 
 const GetCustomers = (limit: Number, sort: String) => {
   var filters = {
@@ -96,7 +95,18 @@ const UpdateCustomer = () => {
           town: $town
         }
       ) {
-        recordId
+        record {
+          _id
+          name
+          lastname
+          phone
+          phone2
+          dni
+          email
+          postalcode
+          address
+          town
+        }
       }
     }
   `;
