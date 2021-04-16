@@ -114,9 +114,48 @@ const UpdateCustomer = () => {
   return query;
 };
 
+const CreateCustomer = () => {
+
+  const query = gql`
+    mutation CustomerCreateOne(
+      $_id: String!,
+      $name: String,
+      $lastname: String,
+      $phone: Float,
+      $phone2: Float,
+      $dni: String,
+      $email: String,
+      $postalcode: Float,
+      $address: String,
+      $town: String
+    ) {
+      CustomerCreateOne(
+        record: {
+          name: $name,
+          lastname: $lastname,
+          phone: $phone,
+          phone2: $phone2,
+          dni: $dni,
+          email: $email,
+          postalcode: $postalcode,
+          address: $address,
+          town: $town
+        }
+      ) {
+        record {
+          _id
+        }
+      }
+    }
+  `;
+
+  return query;
+};
+
 
 export default {
   GetCustomers,
   GetCustomerById,
-  UpdateCustomer
+  UpdateCustomer,
+  CreateCustomer
 };

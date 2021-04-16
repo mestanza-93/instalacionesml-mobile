@@ -41,16 +41,25 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
     },
   });
 
+  // const [createHandler] = useMutation(CustomerModel.CreateCustomer(), {
+  //   onCompleted: (response) => {
+  //     let customerID = response.CustomerCreateOne.record ?? {};
+  //     setCustomer(customerID);
+  //     window.location.href = '/customer/${customerID}';
+  //   },
+  // });
+
   const onSubmit = handleSubmit((formData) => {
     if (props.action == "edit") {
       formData._id = customer._id;
       updateHandler({ variables: formData });
-    } else {
+
+    } else if (props.action == 'create') {
       /**
        * Change to create new user
        */
-      formData._id = customer._id;
-      updateHandler({ variables: formData });
+      console.log(formData);
+      // createHandler({ variables: formData });
     }
   });
 

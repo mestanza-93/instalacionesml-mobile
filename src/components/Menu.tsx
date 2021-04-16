@@ -9,6 +9,9 @@ import {
   IonItem,
   IonMenu,
   IonList,
+  IonFab,
+  IonFabButton,
+  IonFabList,
 } from "@ionic/react";
 
 import {
@@ -17,6 +20,7 @@ import {
   hammerOutline,
   fileTrayStackedOutline,
   folderOutline,
+  addOutline,
 } from "ionicons/icons";
 
 const Menu: React.FC = () => {
@@ -27,6 +31,11 @@ const Menu: React.FC = () => {
           <IonTitle>Instalaciones ML</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonFab vertical="center" horizontal="center">
+        <IonFabButton routerLink="/create-customer">
+          <IonIcon icon={addOutline} />
+        </IonFabButton>
+      </IonFab>
       <IonContent id="menu" className="ion-padding">
         <IonList>
           <IonItem routerLink="/customers">
