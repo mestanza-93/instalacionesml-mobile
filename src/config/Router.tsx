@@ -10,7 +10,7 @@ import Customers from "../pages/Customers";
 const Router: React.FC = () => {
   return (
     <IonReactRouter>
-      <IonRouterOutlet>
+      <IonRouterOutlet id="menu">
         <Route exact path="/customer/:id" component={Customer} />
         <Route exact path="/customers" component={Customers} />
         <Route exact path="/" render={() => <Redirect to="/customers" />} />

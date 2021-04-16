@@ -22,6 +22,7 @@ import constants from "./constants";
 
 import { IonApp } from "@ionic/react";
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import Menu from "./components/Menu";
 
 const App: React.FC = () => {
 
@@ -34,6 +35,7 @@ const App: React.FC = () => {
     <IonApp>
       <ApolloProvider client={client}>
         <Router></Router>
+        <Menu></Menu>
       </ApolloProvider>
     </IonApp>
   );

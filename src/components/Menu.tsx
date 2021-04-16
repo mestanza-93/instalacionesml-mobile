@@ -13,7 +13,6 @@ import {
 
 import {
   peopleOutline,
-  menuOutline,
   calendarOutline,
   hammerOutline,
   fileTrayStackedOutline,
@@ -22,11 +21,10 @@ import {
 
 const Menu: React.FC = () => {
   return (
-    <IonMenu side="start" content-id="menu">
+    <IonMenu side="start" contentId="menu">
       <IonHeader>
-        <IonToolbar>
-          <IonIcon icon={menuOutline}></IonIcon>
-          <IonTitle>Menu</IonTitle>
+        <IonToolbar color="primary">
+          <IonTitle>Instalaciones ML</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent id="menu" className="ion-padding">
