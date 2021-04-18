@@ -41,12 +41,13 @@ const Customers: React.FC = () => {
     } else {
       results = customers.filter((item: CustomerInterface) => 
         (
-          (item.name.toLowerCase().includes(searchText.toLowerCase())) || 
-          (item.lastname.toLowerCase().includes(searchText.toLowerCase())) ||
-          (item.address.toLowerCase().includes(searchText.toLowerCase())) ||
-          (item.town.toLowerCase().includes(searchText.toLowerCase())) ||
-          (item.phone && item.phone.toString().includes(searchText.toLowerCase())) ||
-          (item.postalcode && item.postalcode.toString().includes(searchText.toLowerCase()))
+          (item.name && item.name.toLowerCase().includes(searchText.toLowerCase())) || 
+          (item.lastname && item.lastname.toLowerCase().includes(searchText.toLowerCase())) ||
+          (item.name && item.lastname && item.name.toLocaleLowerCase().concat(' ', item.lastname.toLowerCase()).includes(searchText.toLowerCase())) ||
+          (item.address && item.address.toLowerCase().includes(searchText.toLowerCase())) ||
+          (item.town && item.town.toLowerCase().includes(searchText.toLowerCase())) ||
+          (item.phone && item.phone && item.phone.toString().includes(searchText.toLowerCase())) ||
+          (item.postalcode && item.postalcode && item.postalcode.toString().includes(searchText.toLowerCase()))
         )
       );
     }

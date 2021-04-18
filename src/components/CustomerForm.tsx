@@ -1,4 +1,4 @@
-import { IonButton, IonIcon, IonInput, IonItem, IonLabel } from "@ionic/react";
+import { IonAlert, IonButton, IonIcon, IonInput, IonItem, IonLabel } from "@ionic/react";
 import {
   callOutline,
   cardOutline,
@@ -12,9 +12,14 @@ import CustomerModel from "../models/Customer";
 import CustomerInterface from "../interfaces/Customer";
 import "../theme/customer-profile.css";
 import { useMutation } from "@apollo/client";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const CustomerForm: React.FC<CustomerInterface> = (props) => {
+
+  const buttonTitle = props.action == 'edit' ? 'Editar' : 'Crear';
+  const alertText = props.action == 'edit' ? 'No se ha podido editar el cliente' : 'No se ha podido crear el cliente';
+
+
   /**
    * Form control
    */
@@ -32,8 +37,9 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
   }
 
   /**
-   * Handler customer update
+   * Handler customer actions
    */
+  const [showAlert, setShowAlert] = useState(false);
   const [updateHandler] = useMutation(CustomerModel.UpdateCustomer(), {
     onCompleted: (response) => {
       let customerResult = response.CustomerUpdateById.record ?? {};
@@ -41,25 +47,23 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
     },
   });
 
-  // const [createHandler] = useMutation(CustomerModel.CreateCustomer(), {
-  //   onCompleted: (response) => {
-  //     let customerID = response.CustomerCreateOne.record ?? {};
-  //     setCustomer(customerID);
-  //     window.location.href = '/customer/${customerID}';
-  //   },
-  // });
+  const [createHandler] = useMutation(CustomerModel.CreateCustomer(), {
+    onCompleted: (response) => {
+      let newID = response.CustomerCreateOne.record._id ?? null;
+      if (newID) {
+        window.location.href = `/customer/${newID}`;
+      } else {
+        setShowAlert(true);
+      }
+    },
+  });
 
   const onSubmit = handleSubmit((formData) => {
     if (props.action == "edit") {
       formData._id = customer._id;
       updateHandler({ variables: formData });
-
-    } else if (props.action == 'create') {
-      /**
-       * Change to create new user
-       */
-      console.log(formData);
-      // createHandler({ variables: formData });
+    } else if (props.action == "create") {
+      createHandler({ variables: formData });
     }
   });
 
@@ -163,10 +167,19 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
             color="warning"
             type="submit"
           >
-            Editar
+            {buttonTitle}
           </IonButton>
         </IonLabel>
       </IonItem>
+
+      <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          cssClass='my-custom-class'
+          header={'Error'}
+          message={alertText}
+          buttons={['OK']}
+        />
     </form>
   );
 };

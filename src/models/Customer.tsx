@@ -118,7 +118,6 @@ const CreateCustomer = () => {
 
   const query = gql`
     mutation CustomerCreateOne(
-      $_id: String!,
       $name: String,
       $lastname: String,
       $phone: Float,

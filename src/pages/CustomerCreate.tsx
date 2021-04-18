@@ -13,8 +13,8 @@ const CustomerProfile: React.FC = () => {
    */
   let title = "Nuevo cliente";
   let data = {} as CustomerInterface;
-  const [customer] = useState(data);
   data = {...data, ...{action:'create'}};
+  const [customer] = useState(data);
 
   return (
     <IonContent>
