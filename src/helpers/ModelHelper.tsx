@@ -1,9 +1,8 @@
-import FilterInterface from '../interfaces/Filters';
+import FilterInterface from "../interfaces/Filters";
 
 const GetFilters = (filters: FilterInterface) => {
-
-  var result = '';
-  var arrayFilters = new Array;
+  var result = "";
+  var arrayFilters = new Array();
 
   if (filters.limit && filters.limit > 0) {
     arrayFilters.push(`limit: ${filters.limit}`);
@@ -14,23 +13,30 @@ const GetFilters = (filters: FilterInterface) => {
   }
 
   if (arrayFilters) {
-    result = "(" + arrayFilters.join(',') + ")";
+    result = "(" + arrayFilters.join(",") + ")";
   }
 
   return result;
-
 };
 
 const FilterId = (id: string) => {
-
-  var result = '';
+  var result = "";
 
   if (id) {
     result = `(_id: "${id}")`;
   }
 
   return result;
+};
 
-}
+const FilterField = (id: string, field: string) => {
+  var result = "";
 
-export default {GetFilters, FilterId};
+  if (id && field) {
+    result = `(filter: {${field}: "${id}"})`;
+  }
+
+  return result;
+};
+
+export default { GetFilters, FilterId, FilterField };
