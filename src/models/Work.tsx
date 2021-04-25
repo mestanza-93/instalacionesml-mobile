@@ -1,8 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import ModelHelper from "../helpers/ModelHelper";
+import WorkListInterface from "../interfaces/WorksList"
 
 const GetCustomerWorks = (id: string) => {
-  let works = [];
+  let result = {} as WorkListInterface;
   let filter = ModelHelper.FilterField(id, "customer_id");
 
   const query = gql`
@@ -18,10 +19,10 @@ const GetCustomerWorks = (id: string) => {
   const { data } = useQuery(query);
 
   if (data) {
-    works = data["WorkMany"] ?? [];
+    result.works = data["WorkMany"] ?? [];
   }
 
-  return works;
+  return result;
 };
 
 
