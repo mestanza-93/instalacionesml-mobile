@@ -5,7 +5,6 @@ import {
 import Header from "../components/Header";
 import CustomerForm from "../components/CustomerForm";
 import CustomerInterface from "../interfaces/Customer";
-import "../theme/customer-profile.css";
 
 const CustomerProfile: React.FC = () => {
   /**

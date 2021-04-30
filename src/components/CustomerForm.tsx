@@ -10,7 +10,6 @@ import {
 import { useForm } from "react-hook-form";
 import CustomerModel from "../models/Customer";
 import CustomerInterface from "../interfaces/Customer";
-import "../theme/customer-profile.css";
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 

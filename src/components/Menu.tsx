@@ -9,9 +9,6 @@ import {
   IonItem,
   IonMenu,
   IonList,
-  IonFab,
-  IonFabButton,
-  IonFabList,
 } from "@ionic/react";
 
 import {
@@ -23,6 +20,8 @@ import {
   addOutline,
 } from "ionicons/icons";
 
+import "../theme/header.css";
+
 const Menu: React.FC = () => {
   return (
     <IonMenu side="start" contentId="menu">
@@ -31,32 +30,31 @@ const Menu: React.FC = () => {
           <IonTitle>Instalaciones ML</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonFab vertical="center" horizontal="center">
-        <IonFabButton routerLink="/create-customer">
-          <IonIcon icon={addOutline} />
-        </IonFabButton>
-      </IonFab>
       <IonContent id="menu" className="ion-padding">
         <IonList>
+          <IonItem routerLink="/create-customer">
+            <IonIcon icon={addOutline}></IonIcon>
+            <IonLabel className="menu-item">Nuevo cliente</IonLabel>
+          </IonItem>
           <IonItem routerLink="/customers">
-            <IonLabel>Clientes</IonLabel>
             <IonIcon icon={peopleOutline}></IonIcon>
+            <IonLabel className="menu-item">Clientes</IonLabel>
           </IonItem>
           <IonItem routerLink="/works">
-            <IonLabel>Trabajos</IonLabel>
             <IonIcon icon={hammerOutline}></IonIcon>
+            <IonLabel className="menu-item">Trabajos</IonLabel>
           </IonItem>
           <IonItem routerLink="/invoices">
-            <IonLabel>Facturas</IonLabel>
             <IonIcon icon={folderOutline}></IonIcon>
+            <IonLabel className="menu-item">Facturas</IonLabel>
           </IonItem>
           <IonItem routerLink="/budgets">
-            <IonLabel>Presupuestos</IonLabel>
             <IonIcon icon={fileTrayStackedOutline}></IonIcon>
+            <IonLabel className="menu-item">Presupuestos</IonLabel>
           </IonItem>
           <IonItem routerLink="/calendar">
-            <IonLabel>Calendario</IonLabel>
             <IonIcon icon={calendarOutline}></IonIcon>
+            <IonLabel className="menu-item">Calendario</IonLabel>
           </IonItem>
         </IonList>
       </IonContent>

@@ -8,7 +8,6 @@ import WorkModel from "../models/Work";
 import ParamsInterface from "../interfaces/UrlParams";
 import CustomerInterface from "../interfaces/Customer";
 import WorksListInterface from "../interfaces/WorksList";
-import "../theme/customer-profile.css";
 import CustomerWorks from "../components/CustomerWorks";
 
 const CustomerProfile: React.FC = () => {
