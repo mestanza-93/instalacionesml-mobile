@@ -1,10 +1,8 @@
+import Work from "./Work";
+
 interface WorksList {
   works: [
-    {
-      _id: string;
-      name: string;
-      date: string;
-    }
+    Work
   ];
 }
 

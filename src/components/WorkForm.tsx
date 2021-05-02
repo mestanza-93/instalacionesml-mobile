@@ -1,6 +1,7 @@
-import { IonAlert, IonButton, IonIcon, IonInput, IonItem, IonLabel } from "@ionic/react";
+import { IonAlert, IonButton, IonDatetime, IonIcon, IonInput, IonItem, IonLabel, IonTextarea } from "@ionic/react";
 import {
-  peopleOutline,
+  calendarNumberOutline,
+  documentTextOutline,
 } from "ionicons/icons";
 import { useForm } from "react-hook-form";
 import WorkModel from "../models/Work";
@@ -8,6 +9,7 @@ import WorkInterface from "../interfaces/Work";
 import UrlHelper from "../helpers/UrlHelper";
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
+import { useParams } from "react-router";
 
 
 const WorkForm: React.FC<WorkInterface> = (props) => {
@@ -65,25 +67,29 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
   return (
     <form className="ion-padding" onSubmit={onSubmit}>
       <IonItem>
-        <IonIcon slot="start" icon={peopleOutline}></IonIcon>
-        <IonInput
+        <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
+        <IonTextarea
+          rows={6}
           value={work.name ?? ""}
-          placeholder="Nombre"
+          placeholder="Descripción"
           onIonChange={(e): void => {
             setValue("name", e.detail.value ?? "");
           }}
-        ></IonInput>
+        ></IonTextarea>
       </IonItem>
 
       <IonItem>
-        <IonIcon slot="start" icon={peopleOutline}></IonIcon>
-        <IonInput
+        <IonIcon slot="start" icon={calendarNumberOutline}></IonIcon>
+        <IonDatetime
+          displayFormat="DD-MM-YYYY HH:mm"
           value={work.date ?? ""}
-          placeholder="Apellidos"
+          placeholder="Fecha"
           onIonChange={(e): void => {
             setValue("date", e.detail.value ?? "");
           }}
-        ></IonInput>
+          cancelText="Cancelar"
+          doneText="Aceptar"
+        ></IonDatetime>
       </IonItem>
 
       <IonItem className="ion-text-center" lines="none">

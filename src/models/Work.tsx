@@ -57,13 +57,13 @@ const CreateWork = () => {
   const query = gql`
     mutation WorkCreateOne(
       $name: String,
-      $lastname: String,
+      $date: Date,
       $customer_id: String,
     ) {
       WorkCreateOne(
         record: {
           name: $name,
-          lastname: $lastname,
+          date: $date,
           customer_id: $customer_id,
         }
       ) {
@@ -84,7 +84,7 @@ const UpdateWork = () => {
     mutation WorkUpdateById(
       $_id: String!,
       $name: String,
-      $date: String,
+      $date: Date,
     ) {
       WorkUpdateById(
         _id: $_id,
