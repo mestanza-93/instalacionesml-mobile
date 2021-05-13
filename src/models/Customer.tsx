@@ -1,11 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import ModelHelper from "../helpers/ModelHelper";
+import FilterInterface from "../interfaces/Filters";
 
-const GetCustomers = (limit: Number, sort: String) => {
-  var filters = {
-    limit: limit,
-    sort: sort,
-  };
+const GetCustomers = (filters: FilterInterface) => {
 
   var filtersQuery = ModelHelper.GetFilters(filters);
 

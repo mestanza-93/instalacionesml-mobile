@@ -11,15 +11,18 @@ import Header from "../components/Header";
 import ItemCustomer from "../components/CustomerItem";
 import CustomerModel from '../models/Customer';
 import CustomerInterface from '../interfaces/Customer';
+import FilterInterface from "../interfaces/Filters";
 
 let title = "Clientes";
-let limit = 5000;
 let showLimit = 25;
-let sort = 'NAME_ASC';
+
+let filters = {} as FilterInterface;
+filters.sort = 'NAME_ASC';
+filters.limit = 5000;
 
 const Customers: React.FC = () => {
 
-  const customers = CustomerModel.GetCustomers(limit, sort) ?? [];
+  const customers = CustomerModel.GetCustomers(filters) ?? [];
   const [searchText, setSearchText] = useState('');
   const [searchCustomers, setSearchCustomers] = useState(customers.slice(0, showLimit));
 

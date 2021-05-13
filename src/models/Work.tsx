@@ -1,20 +1,25 @@
 import { gql, useQuery } from "@apollo/client";
 import ModelHelper from "../helpers/ModelHelper";
-import WorkListInterface from "../interfaces/WorksList"
+import WorkListInterface from "../interfaces/WorksList";
+import FilterInterface from "../interfaces/Filters";
 
-const GetCustomerWorks = (id: string) => {
+
+const GetCustomerWorks = (filters: FilterInterface) => {
   let result = {} as WorkListInterface;
-  let filter = ModelHelper.FilterField(id, "customer_id");
+
+  var filtersQuery = ModelHelper.GetFilters(filters);
 
   const query = gql`
       {
-        WorkMany ${filter} {
+        WorkMany ${filtersQuery} {
           _id
           name
           date
         }
       }
     `;
+
+  console.log(filtersQuery);
 
   const { data } = useQuery(query);
 

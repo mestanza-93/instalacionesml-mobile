@@ -9,6 +9,7 @@ import ParamsInterface from "../interfaces/UrlParams";
 import CustomerInterface from "../interfaces/Customer";
 import WorksListInterface from "../interfaces/WorksList";
 import CustomerWorks from "../components/CustomerWorks";
+import FilterInterface from "../interfaces/Filters";
 
 const CustomerProfile: React.FC = () => {
   /**
@@ -34,9 +35,14 @@ const CustomerProfile: React.FC = () => {
   /**
    * Customer works
    */
+  let filters = {} as FilterInterface;
+  filters.sort = 'DATE_DESC';
+  filters.field = 'customer_id';
+  filters.fieldValue = id;
+
   let dataWorks = {} as WorksListInterface;
   const [works, setWorks] = useState(dataWorks);
-  dataWorks = id ? WorkModel.GetCustomerWorks(id) ?? dataWorks : dataWorks;
+  dataWorks = id ? WorkModel.GetCustomerWorks(filters) ?? dataWorks : dataWorks;
 
   /**
    * Initialize works data

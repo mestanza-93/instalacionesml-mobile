@@ -4,6 +4,10 @@ const GetFilters = (filters: FilterInterface) => {
   var result = "";
   var arrayFilters = new Array();
 
+  if (filters.field && filters.fieldValue) {
+    arrayFilters.push(`filter: {${filters.field}: "${filters.fieldValue}"}`);
+  }
+
   if (filters.limit && filters.limit > 0) {
     arrayFilters.push(`limit: ${filters.limit}`);
   }
