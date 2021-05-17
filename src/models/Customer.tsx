@@ -148,10 +148,30 @@ const CreateCustomer = () => {
   return query;
 };
 
+const DeleteCustomer = () => {
+
+  const query = gql`
+    mutation CustomerRemoveOne(
+      $_id: String!,
+    ) {
+      CustomerRemoveOne(
+        _id: $_id,
+      ) {
+        record {
+          _id
+        }
+      }
+    }
+  `;
+
+  return query;
+};
+
 
 export default {
   GetCustomers,
   GetCustomerById,
   UpdateCustomer,
-  CreateCustomer
+  CreateCustomer,
+  DeleteCustomer
 };

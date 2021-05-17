@@ -1,8 +1,14 @@
-import { IonAlert, IonButton, IonDatetime, IonIcon, IonInput, IonItem, IonLabel, IonTextarea } from "@ionic/react";
 import {
-  calendarNumberOutline,
-  documentTextOutline,
-} from "ionicons/icons";
+  IonAlert,
+  IonButton,
+  IonDatetime,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonTextarea,
+} from "@ionic/react";
+import { calendarNumberOutline, documentTextOutline } from "ionicons/icons";
 import { useForm } from "react-hook-form";
 import WorkModel from "../models/Work";
 import WorkInterface from "../interfaces/Work";
@@ -11,11 +17,12 @@ import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useParams } from "react-router";
 
-
 const WorkForm: React.FC<WorkInterface> = (props) => {
-
-  const buttonTitle = props.action == 'edit' ? 'Editar' : 'Crear';
-  const alertText = props.action == 'edit' ? 'No se ha podido editar el trabajo' : 'No se ha podido crear el trabajo';
+  const buttonTitle = props.action == "edit" ? "Editar" : "Crear";
+  const alertText =
+    props.action == "edit"
+      ? "No se ha podido editar el trabajo"
+      : "No se ha podido crear el trabajo";
 
   /**
    * Form control
@@ -48,7 +55,7 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
     onCompleted: (response) => {
       let newID = response.WorkCreateOne.record._id ?? null;
       if (newID) {
-        window.location.href = UrlHelper.MakeUrl('work', newID);
+        window.location.href = UrlHelper.MakeUrl("work", newID);
       } else {
         setShowAlert(true);
       }
@@ -102,16 +109,28 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
             {buttonTitle}
           </IonButton>
         </IonLabel>
+        {props.action == "edit" ? (
+          <IonLabel>
+            <IonButton
+              className="ion-margin-top work-delete-button"
+              color="danger"
+            >
+              Borrar
+            </IonButton>
+          </IonLabel>
+        ) : (
+          ""
+        )}
       </IonItem>
 
       <IonAlert
-          isOpen={showAlert}
-          onDidDismiss={() => setShowAlert(false)}
-          cssClass='my-custom-class'
-          header={'Error'}
-          message={alertText}
-          buttons={['OK']}
-        />
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        cssClass="my-custom-class"
+        header={"Error"}
+        message={alertText}
+        buttons={["OK"]}
+      />
     </form>
   );
 };

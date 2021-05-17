@@ -169,6 +169,19 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
             {buttonTitle}
           </IonButton>
         </IonLabel>
+        {props.action == "edit" ? (
+          <IonLabel>
+            <IonButton
+              className="ion-margin-top customer-delete-button"
+              color="danger"
+              type="submit"
+            >
+              Borrar
+            </IonButton>
+          </IonLabel>
+        ) : (
+          ""
+        )}
       </IonItem>
 
       <IonAlert

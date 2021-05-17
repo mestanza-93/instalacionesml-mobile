@@ -19,8 +19,6 @@ const GetCustomerWorks = (filters: FilterInterface) => {
       }
     `;
 
-  console.log(filtersQuery);
-
   const { data } = useQuery(query);
 
   if (data) {
@@ -110,10 +108,30 @@ const UpdateWork = () => {
   return query;
 };
 
+const DeleteWork = () => {
+
+  const query = gql`
+    mutation WorkRemoveOne(
+      $_id: String!,
+    ) {
+      WorkRemoveOne(
+        _id: $_id,
+      ) {
+        record {
+          _id
+        }
+      }
+    }
+  `;
+
+  return query;
+};
+
 
 export default { 
   GetCustomerWorks, 
   GetWorkById, 
   CreateWork, 
-  UpdateWork 
+  UpdateWork,
+  DeleteWork
 };
