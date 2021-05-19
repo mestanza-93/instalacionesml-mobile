@@ -1,4 +1,11 @@
-import { IonAlert, IonButton, IonIcon, IonInput, IonItem, IonLabel } from "@ionic/react";
+import {
+  IonAlert,
+  IonButton,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
+} from "@ionic/react";
 import {
   callOutline,
   cardOutline,
@@ -12,12 +19,14 @@ import CustomerModel from "../models/Customer";
 import CustomerInterface from "../interfaces/Customer";
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
+import UrlHelper from "../helpers/UrlHelper";
 
 const CustomerForm: React.FC<CustomerInterface> = (props) => {
-
-  const buttonTitle = props.action == 'edit' ? 'Editar' : 'Crear';
-  const alertText = props.action == 'edit' ? 'No se ha podido editar el cliente' : 'No se ha podido crear el cliente';
-
+  const buttonTitle = props.action == "edit" ? "Editar" : "Crear";
+  const alertText =
+    props.action == "edit"
+      ? "No se ha podido editar el cliente"
+      : "No se ha podido crear el cliente";
 
   /**
    * Form control
@@ -65,6 +74,21 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
       createHandler({ variables: formData });
     }
   });
+
+  const [deleteHandler] = useMutation(CustomerModel.DeleteCustomer(), {
+    onCompleted: (response) => {
+      let deletedID = response.CustomerRemoveById ?? null;
+      if (deletedID) {
+        window.location.href = UrlHelper.MakeUrl("customers");
+      } else {
+        setShowAlert(true);
+      }
+    },
+  });
+
+  const deleteCustomer = () => {
+    deleteHandler({ variables: { _id: customer._id } });
+  };
 
   return (
     <form className="ion-padding" onSubmit={onSubmit}>
@@ -174,7 +198,7 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
             <IonButton
               className="ion-margin-top customer-delete-button"
               color="danger"
-              type="submit"
+              onClick={() => deleteCustomer()}
             >
               Borrar
             </IonButton>
@@ -185,13 +209,13 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
       </IonItem>
 
       <IonAlert
-          isOpen={showAlert}
-          onDidDismiss={() => setShowAlert(false)}
-          cssClass='my-custom-class'
-          header={'Error'}
-          message={alertText}
-          buttons={['OK']}
-        />
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        cssClass="my-custom-class"
+        header={"Error"}
+        message={alertText}
+        buttons={["OK"]}
+      />
     </form>
   );
 };

@@ -151,11 +151,11 @@ const CreateCustomer = () => {
 const DeleteCustomer = () => {
 
   const query = gql`
-    mutation CustomerRemoveOne(
+    mutation CustomerRemoveById(
       $_id: String!,
     ) {
-      CustomerRemoveOne(
-        _id: $_id,
+      CustomerRemoveById(
+        _id: $_id
       ) {
         record {
           _id
@@ -163,7 +163,7 @@ const DeleteCustomer = () => {
       }
     }
   `;
-
+  
   return query;
 };
 

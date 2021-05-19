@@ -111,11 +111,11 @@ const UpdateWork = () => {
 const DeleteWork = () => {
 
   const query = gql`
-    mutation WorkRemoveOne(
+    mutation WorkRemoveById(
       $_id: String!,
     ) {
-      WorkRemoveOne(
-        _id: $_id,
+      WorkRemoveById(
+        _id: $_id
       ) {
         record {
           _id
@@ -123,7 +123,7 @@ const DeleteWork = () => {
       }
     }
   `;
-
+  
   return query;
 };
 

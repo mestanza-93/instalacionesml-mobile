@@ -15,7 +15,6 @@ import WorkInterface from "../interfaces/Work";
 import UrlHelper from "../helpers/UrlHelper";
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { useParams } from "react-router";
 
 const WorkForm: React.FC<WorkInterface> = (props) => {
   const buttonTitle = props.action == "edit" ? "Editar" : "Crear";
@@ -62,6 +61,17 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
     },
   });
 
+  const [deleteHandler] = useMutation(WorkModel.DeleteWork(), {
+    onCompleted: (response) => {
+      let deletedID = response.WorkRemoveById ?? null;
+      if (deletedID) {
+        window.location.href = UrlHelper.MakeUrl("customer", work.customer_id);
+      } else {
+        setShowAlert(true);
+      }
+    },
+  });
+
   const onSubmit = handleSubmit((formData) => {
     if (props.action == "edit") {
       formData._id = work._id;
@@ -70,6 +80,10 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
       createHandler({ variables: formData });
     }
   });
+
+  const deleteWork = () => {
+    deleteHandler({ variables: {_id: work._id} });
+  };
 
   return (
     <form className="ion-padding" onSubmit={onSubmit}>
@@ -114,6 +128,7 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
             <IonButton
               className="ion-margin-top work-delete-button"
               color="danger"
+              onClick={() => deleteWork()}
             >
               Borrar
             </IonButton>
