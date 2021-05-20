@@ -4,12 +4,15 @@ import Header from "../components/Header";
 import UserForm from "../components/UserForm";
 import UserModel from "../models/User";
 import UserInterface from "../interfaces/User";
+import HeaderInterface from "../interfaces/Header";
 
 const UserProfile: React.FC = () => {
   /**
    * Customer data
    */
-  let title = "Mis datos";
+  let header = {} as HeaderInterface;
+  header.title = "Mis datos";
+  
   let data = {} as UserInterface;
 
   const [user, setUser] = useState(data);
@@ -24,7 +27,7 @@ const UserProfile: React.FC = () => {
 
   return (
     <IonContent>
-      <Header title={title}></Header>
+      <Header {...header}></Header>
       <UserForm {...user}></UserForm>
     </IonContent>
   );

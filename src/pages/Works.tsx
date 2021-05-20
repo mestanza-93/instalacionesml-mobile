@@ -5,9 +5,12 @@ import WorkListInterface from "../interfaces/WorksList";
 import Header from "../components/Header";
 import WorkList from "../components/WorkList";
 import WorkModel from "../models/Work";
+import HeaderInterface from "../interfaces/Header";
 
 const Works: React.FC = () => {
-  let title = "Últimos trabajos";
+  let header = {} as HeaderInterface;
+  header.title = "Últimos trabajos";
+  
   let data = {} as WorkListInterface;
 
   /**
@@ -29,7 +32,7 @@ const Works: React.FC = () => {
 
   return (
     <IonContent>
-      <Header title={title}></Header>
+      <Header {...header}></Header>
       <WorkList {...works}></WorkList>
     </IonContent>
   );

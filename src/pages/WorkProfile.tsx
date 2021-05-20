@@ -6,13 +6,18 @@ import WorkForm from "../components/WorkForm";
 import WorkInterface from "../interfaces/Work";
 import ParamsInterface from "../interfaces/UrlParams";
 import WorkModel from "../models/Work";
+import HeaderInterface from "../interfaces/Header";
+import UrlHelper from "../helpers/UrlHelper";
 
 
 const WorkProfile: React.FC = () => {
   /**
    * Work data
    */
-   let title = "Trabajo";
+   let header = {} as HeaderInterface;
+   header.title = "Trabajo";
+   header.backName = "Cliente";
+   
    let data = {} as WorkInterface;
    let params = {} as ParamsInterface;
    params = useParams() ?? {};
@@ -21,6 +26,8 @@ const WorkProfile: React.FC = () => {
    const [work, setWork] = useState(data);
    data = id ? WorkModel.GetWorkById(id) ?? {} : {};
  
+   header.backUrl = UrlHelper.MakeUrl('customer', data.customer_id);
+
    /**
     * Initialize form data
     */
@@ -31,7 +38,7 @@ const WorkProfile: React.FC = () => {
  
    return (
      <IonContent>
-       <Header title={title}></Header>
+       <Header {...header}></Header>
        <WorkForm {...work}></WorkForm>
      </IonContent>
    );

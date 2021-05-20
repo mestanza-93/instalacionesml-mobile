@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import {
-  IonContent,
-} from "@ionic/react";
+import { IonContent } from "@ionic/react";
 import Header from "../components/Header";
 import WorkForm from "../components/WorkForm";
 import WorkInterface from "../interfaces/Work";
 import ParamsInterface from "../interfaces/UrlParams";
 import { useParams } from "react-router";
+import HeaderInterface from "../interfaces/Header";
 
 const WorkCreate: React.FC = () => {
   /**
    * Work structure
    */
-  let title = "Nuevo trabajo";
+
+  let header = {} as HeaderInterface;
+  header.title = "Nuevo trabajo";
+
   let data = {} as WorkInterface;
-  data = {...data, ...{action:'create'}};
+  data = { ...data, ...{ action: "create" } };
   const [work] = useState(data);
 
   let params = {} as ParamsInterface;
@@ -25,7 +27,7 @@ const WorkCreate: React.FC = () => {
 
   return (
     <IonContent>
-      <Header title={title}></Header>
+      <Header {...header}></Header>
       <WorkForm {...work}></WorkForm>
     </IonContent>
   );

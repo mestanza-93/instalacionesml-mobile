@@ -12,8 +12,11 @@ import ItemCustomer from "../components/CustomerItem";
 import CustomerModel from '../models/Customer';
 import CustomerInterface from '../interfaces/Customer';
 import FilterInterface from "../interfaces/Filters";
+import HeaderInterface from "../interfaces/Header";
 
-let title = "Clientes";
+let header = {} as HeaderInterface;
+header.title = "Clientes";
+
 let showLimit = 25;
 
 let filters = {} as FilterInterface;
@@ -65,7 +68,7 @@ const Customers: React.FC = () => {
   if (customers){
     return (
       <IonContent>
-        <Header title={title}></Header>
+        <Header {...header}></Header>
         <IonSearchbar animated={true} placeholder="Buscar" value={searchText} onIonChange={e => handleChange(e.detail.value!)}></IonSearchbar>
         <IonList>
           {
@@ -79,7 +82,7 @@ const Customers: React.FC = () => {
   } else {
     return (
       <IonContent>
-        <Header title={title}></Header>
+        <Header {...header}></Header>
         
         <IonList>
           <IonItem>

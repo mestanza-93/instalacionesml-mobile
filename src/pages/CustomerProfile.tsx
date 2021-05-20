@@ -10,12 +10,15 @@ import CustomerInterface from "../interfaces/Customer";
 import WorksListInterface from "../interfaces/WorksList";
 import CustomerWorks from "../components/CustomerWorks";
 import FilterInterface from "../interfaces/Filters";
+import HeaderInterface from "../interfaces/Header";
 
 const CustomerProfile: React.FC = () => {
   /**
    * Customer data
    */
-  let title = "Perfil cliente";
+   let header = {} as HeaderInterface;
+   header.title = "Perfil cliente";
+
   let data = {} as CustomerInterface;
   let params = {} as ParamsInterface;
   params = useParams() ?? {};
@@ -53,7 +56,7 @@ const CustomerProfile: React.FC = () => {
 
   return (
     <IonContent>
-      <Header title={title}></Header>
+      <Header {...header}></Header>
       <CustomerForm {...customer}></CustomerForm>
       <CustomerWorks {...works}></CustomerWorks>
     </IonContent>
