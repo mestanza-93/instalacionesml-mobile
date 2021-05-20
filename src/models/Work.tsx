@@ -7,7 +7,7 @@ import FilterInterface from "../interfaces/Filters";
 const GetCustomerWorks = (filters: FilterInterface) => {
   let result = {} as WorkListInterface;
 
-  var filtersQuery = ModelHelper.GetFilters(filters);
+  let filtersQuery = ModelHelper.GetFilters(filters);
 
   const query = gql`
       {
@@ -52,6 +52,32 @@ const GetWorkById = (id: string) => {
   }
 
   return work;
+};
+
+
+const GetLastWorks = (filters: FilterInterface) => {
+  let result = {} as WorkListInterface;
+  let filtersQuery = ModelHelper.GetFilters(filters);
+
+  const query = gql`
+    {
+      WorkMany ${filtersQuery} {
+        _id
+        name
+        date
+        customer_id
+        updated_at
+      }
+    }
+  `;
+
+  const { data } = useQuery(query);
+
+  if (data) {
+    result.works = data["WorkMany"] ?? [];
+  }
+
+  return result;
 };
 
 
@@ -133,5 +159,6 @@ export default {
   GetWorkById, 
   CreateWork, 
   UpdateWork,
-  DeleteWork
+  DeleteWork,
+  GetLastWorks
 };
