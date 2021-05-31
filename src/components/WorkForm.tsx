@@ -7,6 +7,7 @@ import {
   IonItem,
   IonLabel,
   IonTextarea,
+  useIonAlert,
 } from "@ionic/react";
 import { calendarNumberOutline, documentTextOutline } from "ionicons/icons";
 import { useForm } from "react-hook-form";
@@ -43,6 +44,8 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
    * Handler works actions
    */
   const [showAlert, setShowAlert] = useState(false);
+  const [confirm] = useIonAlert();
+
   const [updateHandler] = useMutation(WorkModel.UpdateWork(), {
     onCompleted: (response) => {
       let workResult = response.WorkUpdateById.record ?? {};
@@ -128,7 +131,16 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
             <IonButton
               className="ion-margin-top work-delete-button"
               color="danger"
-              onClick={() => deleteWork()}
+              onClick={() => 
+                confirm({
+                  header: 'Eliminar trabajo',
+                  message: '¿Estás seguro?',
+                  buttons: [
+                    'Cancelar',
+                    { text: 'Confirmar', handler: (d) => deleteWork() },
+                  ],
+                })
+              }
             >
               Borrar
             </IonButton>

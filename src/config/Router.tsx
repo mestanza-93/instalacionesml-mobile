@@ -10,6 +10,10 @@ import WorkCreate from "../pages/WorkCreate";
 import Customers from "../pages/Customers";
 import Work from "../pages/WorkProfile";
 import Works from "../pages/Works";
+import Invoice from "../pages/InvoiceProfile";
+import Invoices from "../pages/Invoices";
+import Budget from "../pages/BudgetProfile";
+import Budgets from "../pages/Budgets";
 import User from "../pages/User";
 
 const Router: React.FC = () => {
@@ -22,6 +26,10 @@ const Router: React.FC = () => {
         <Route exact path="/create-work/:id" component={WorkCreate} />
         <Route exact path="/work/:id" component={Work} />
         <Route exact path="/works" component={Works} />
+        <Route exact path="/invoice/:id" component={Invoice} />
+        <Route exact path="/invoices" component={Invoices} />
+        <Route exact path="/budget/:id" component={Budget} />
+        <Route exact path="/budgets" component={Budgets} />
         <Route exact path="/user" component={User} />
         <Route exact path="/" render={() => <Redirect to="/customers" />} />
       </IonRouterOutlet>

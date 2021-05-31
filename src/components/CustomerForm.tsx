@@ -5,6 +5,7 @@ import {
   IonInput,
   IonItem,
   IonLabel,
+  useIonAlert,
 } from "@ionic/react";
 import {
   callOutline,
@@ -48,6 +49,8 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
    * Handler customer actions
    */
   const [showAlert, setShowAlert] = useState(false);
+  const [confirm] = useIonAlert();
+
   const [updateHandler] = useMutation(CustomerModel.UpdateCustomer(), {
     onCompleted: (response) => {
       let customerResult = response.CustomerUpdateById.record ?? {};
@@ -198,7 +201,16 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
             <IonButton
               className="ion-margin-top customer-delete-button"
               color="danger"
-              onClick={() => deleteCustomer()}
+              onClick={() => 
+                confirm({
+                  header: 'Eliminar cliente',
+                  message: '¿Estás seguro?',
+                  buttons: [
+                    'Cancelar',
+                    { text: 'Confirmar', handler: (d) => deleteCustomer() },
+                  ],
+                })
+              }
             >
               Borrar
             </IonButton>

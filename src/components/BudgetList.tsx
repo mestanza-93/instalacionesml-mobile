@@ -1,0 +1,31 @@
+import { IonContent, IonIcon, IonItem, IonLabel, IonList } from "@ionic/react";
+import { folderOutline } from "ionicons/icons";
+import React from "react";
+import FormatHelper from "../helpers/FormatHelper";
+import UrlHelper from "../helpers/UrlHelper";
+import BudgetListInterface from "../interfaces/BudgetList";
+
+const BudgetList: React.FC<BudgetListInterface> = (props) => {
+
+  let budgets = props.budgets;
+
+  return (
+    <IonContent>
+     <IonList>
+        {budgets && budgets.length > 0
+          ? budgets.map((budget: any) => (
+              <IonItem href={UrlHelper.MakeUrl("invoice", budget._id)}>
+                <IonIcon icon={folderOutline} slot="start" />
+                <IonLabel>
+                  <h2>Presupuesto {FormatHelper.PrintInvoiceTitle(budget.year, budget.budget_id)}</h2>
+                  <p>{budget.date ? FormatHelper.FormatDate(budget.date) : ""}</p>
+                </IonLabel>
+              </IonItem>
+            ))
+          : ""}
+      </IonList>
+    </IonContent>
+  );
+};
+
+export default BudgetList;
