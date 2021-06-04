@@ -28,7 +28,9 @@ const App: React.FC = () => {
 
   const client = new ApolloClient({
     uri: process.env.NODE_ENV == 'development' ? constants.API_URL_LOCAL : constants.API_URL,
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+      addTypename: false
+    })
   });
 
   return (

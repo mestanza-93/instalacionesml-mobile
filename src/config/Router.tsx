@@ -10,6 +10,7 @@ import WorkCreate from "../pages/WorkCreate";
 import Customers from "../pages/Customers";
 import Work from "../pages/WorkProfile";
 import Works from "../pages/Works";
+import InvoiceCreate from "../pages/InvoiceCreate";
 import Invoice from "../pages/InvoiceProfile";
 import Invoices from "../pages/Invoices";
 import Budget from "../pages/BudgetProfile";
@@ -26,6 +27,7 @@ const Router: React.FC = () => {
         <Route exact path="/create-work/:id" component={WorkCreate} />
         <Route exact path="/work/:id" component={Work} />
         <Route exact path="/works" component={Works} />
+        <Route exact path="/create-invoice/:id" component={InvoiceCreate} />
         <Route exact path="/invoice/:id" component={Invoice} />
         <Route exact path="/invoices" component={Invoices} />
         <Route exact path="/budget/:id" component={Budget} />

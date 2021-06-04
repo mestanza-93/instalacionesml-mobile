@@ -21,7 +21,7 @@ const Invoices: React.FC = () => {
   filters.limit = 25;
 
   const [invoices, setInvoices] = useState(data);
-  data = InvoiceModel.GetLastInvoices(filters) ?? {};
+  data = InvoiceModel.GetInvoices(filters) ?? {};
 
   /**
    * Initialize list data

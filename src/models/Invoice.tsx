@@ -36,7 +36,8 @@ const GetInvoiceById = (id: string) => {
   return invoice;
 };
 
-const GetLastInvoices = (filters: FilterInterface) => {
+
+const GetInvoices = (filters: FilterInterface) => {
   let result = {} as InvoiceListInterface;
   let filtersQuery = ModelHelper.GetFilters(filters);
 
@@ -69,24 +70,45 @@ const GetLastInvoices = (filters: FilterInterface) => {
   return result;
 };
 
-
 const CreateInvoice = () => {
 
   const query = gql`
     mutation InvoiceCreateOne(
-      $name: String,
+      $invoice_id: Float,
+      $work_id: String,
+      $iva: Float,
       $date: Date,
-      $customer_id: String,
+      $year: Float,
+      $payment: Float,
+      $comment: String,
+      $concepts: [ConceptInput]
     ) {
-      WorkCreateOne(
+      InvoiceCreateOne(
         record: {
-          name: $name,
+          invoice_id: $invoice_id,
+          work_id: $work_id,
+          iva: $iva,
           date: $date,
-          customer_id: $customer_id,
+          year: $year,
+          payment: $payment,
+          comment: $comment,
+          concepts: $concepts
         }
       ) {
         record {
           _id
+          invoice_id
+          work_id
+          iva
+          date
+          year
+          payment
+          comment
+          concepts {
+            concept
+            base
+            units
+          }
         }
       }
     }
@@ -101,20 +123,42 @@ const UpdateInvoice = () => {
   const query = gql`
     mutation InvoiceUpdateById(
       $_id: String!,
-      $name: String,
+      $invoice_id: Float,
+      $work_id: String,
+      $iva: Float,
       $date: Date,
+      $year: Float,
+      $payment: Float,
+      $comment: String,
+      $concepts: [UpdateByIdConceptInput]
     ) {
-      WorkUpdateById(
+      InvoiceUpdateById(
         _id: $_id,
         record: {
-          name: $name,
+          invoice_id: $invoice_id,
+          work_id: $work_id,
+          iva: $iva,
           date: $date,
+          year: $year,
+          payment: $payment,
+          comment: $comment,
+          concepts: $concepts
         }
       ) {
         record {
           _id
-          name
+          invoice_id
+          work_id
+          iva
           date
+          year
+          payment
+          comment
+          concepts {
+            concept
+            base
+            units
+          }
         }
       }
     }
@@ -129,7 +173,7 @@ const DeleteInvoice = () => {
     mutation InvoiceRemoveById(
       $_id: String!,
     ) {
-      WorkRemoveById(
+      InvoiceRemoveById(
         _id: $_id
       ) {
         record {
@@ -144,7 +188,7 @@ const DeleteInvoice = () => {
 
 export default {
   GetInvoiceById,
-  GetLastInvoices,
+  GetInvoices,
   CreateInvoice,
   UpdateInvoice,
   DeleteInvoice

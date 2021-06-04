@@ -5,7 +5,11 @@ const GetFilters = (filters: FilterInterface) => {
   var arrayFilters = new Array();
 
   if (filters.field && filters.fieldValue) {
-    arrayFilters.push(`filter: {${filters.field}: "${filters.fieldValue}"}`);
+    if (filters.fieldType == Number) {
+      arrayFilters.push(`filter: {${filters.field}: ${filters.fieldValue}}`);
+    } else {
+      arrayFilters.push(`filter: {${filters.field}: "${filters.fieldValue}"}`);
+    }
   }
 
   if (filters.limit && filters.limit > 0) {
