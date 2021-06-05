@@ -14,7 +14,7 @@ const BudgetList: React.FC<BudgetListInterface> = (props) => {
      <IonList>
         {budgets && budgets.length > 0
           ? budgets.map((budget: any) => (
-              <IonItem href={UrlHelper.MakeUrl("invoice", budget._id)}>
+              <IonItem href={UrlHelper.MakeUrl("budget", budget._id)}>
                 <IonIcon icon={folderOutline} slot="start" />
                 <IonLabel>
                   <h2>Presupuesto {FormatHelper.PrintInvoiceTitle(budget.year, budget.budget_id)}</h2>

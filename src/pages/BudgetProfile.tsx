@@ -14,7 +14,7 @@ const BudgetProfile: React.FC = () => {
    * Budget data
    */
   let header = {} as HeaderInterface;
-  header.title = "Factura";
+  header.title = "Presupuesto";
   header.backName = "Trabajo";
 
   let data = {} as BudgetInterface;

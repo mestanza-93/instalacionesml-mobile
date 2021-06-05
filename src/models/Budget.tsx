@@ -36,7 +36,7 @@ const GetBudgetById = (id: string) => {
   return budget;
 };
 
-const GetLastBudgets = (filters: FilterInterface) => {
+const GetBudgets = (filters: FilterInterface) => {
   let result = {} as BudgetListInterface;
   let filtersQuery = ModelHelper.GetFilters(filters);
 
@@ -71,5 +71,5 @@ const GetLastBudgets = (filters: FilterInterface) => {
 
 export default {
   GetBudgetById,
-  GetLastBudgets,
+  GetBudgets,
 };

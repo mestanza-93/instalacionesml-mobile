@@ -9,7 +9,7 @@ import BudgetModel from "../models/Budget";
 
 const Budgets: React.FC = () => {
   let header = {} as HeaderInterface;
-  header.title = "Últimas facturas";
+  header.title = "Últimos presupuestos";
   
   let data = {} as BudgetListInterface;
 
@@ -21,7 +21,7 @@ const Budgets: React.FC = () => {
   filters.limit = 25;
 
   const [budgets, setBudgets] = useState(data);
-  data = BudgetModel.GetLastBudgets(filters) ?? {};
+  data = BudgetModel.GetBudgets(filters) ?? {};
 
   /**
    * Initialize list data
