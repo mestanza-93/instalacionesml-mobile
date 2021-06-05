@@ -28,7 +28,7 @@ import {
 } from "ionicons/icons";
 import "../theme/invoice.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import InvoiceModel from "../models/Invoice";
@@ -97,7 +97,6 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
       formData._id = invoice._id;
       updateHandler({ variables: formData });
     } else if (props.action == "create") {
-
       formData.work_id = invoice.work_id;
       formData.invoice_id = invoice.invoice_id;
       formData.concepts = invoice.concepts;
@@ -142,13 +141,10 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
   };
 
   const pushConcept = () => {
-    const newConcepts = invoice.concepts ? JSON.parse(JSON.stringify(invoice.concepts)) : [];
+    const newConcepts = invoice.concepts
+      ? JSON.parse(JSON.stringify(invoice.concepts))
+      : [];
     let index = newConcepts.lastIndexOf(newConcepts.slice(-1)[0]) ?? 0;
-    
-
-    /**
-     * Continuar aqui el problema
-     */
 
     if (!newConcepts[index + 1]) {
       newConcepts[index + 1] = newConcept;
@@ -157,8 +153,6 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
     setValue("concepts", newConcepts);
     setNewConcept({} as ConceptInterface);
   };
-
-  console.log(invoice);
 
   return (
     <form className="ion-padding" onSubmit={onSubmit}>
@@ -192,13 +186,10 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
       <IonItem>
         <IonIcon slot="start" icon={cashOutline}></IonIcon>
         <IonInput
-          value={invoice.iva ?? ''}
+          value={invoice.iva ?? ""}
           placeholder="% IVA"
           onIonChange={(e): void => {
-            setValue(
-              "iva",
-              e.detail.value ? Number(e.detail.value) : 21
-            );
+            setValue("iva", e.detail.value ? Number(e.detail.value) : 21);
           }}
         ></IonInput>
       </IonItem>
@@ -363,6 +354,7 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
             onClick={() => {
               pushConcept();
               setShowPopover({ showPopover: false, event: undefined });
+              onSubmit();
             }}
           >
             Añadir
@@ -370,16 +362,20 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
         </IonItem>
       </IonPopover>
 
-      <IonFab vertical="bottom" horizontal="end" slot="fixed">
-        <IonFabButton
-          onClick={(e: any) => {
-            e.persist();
-            setShowPopover({ showPopover: true, event: e });
-          }}
-        >
-          <IonIcon icon={addOutline} />
-        </IonFabButton>
-      </IonFab>
+      {props.action == "edit" ? (
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton
+            onClick={(e: any) => {
+              e.persist();
+              setShowPopover({ showPopover: true, event: e });
+            }}
+          >
+            <IonIcon icon={addOutline} />
+          </IonFabButton>
+        </IonFab>
+      ) : (
+        ""
+      )}
 
       <IonAlert
         isOpen={showAlert}
