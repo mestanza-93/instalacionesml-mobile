@@ -3,8 +3,6 @@ import {
   IonButton,
   IonCard,
   IonDatetime,
-  IonFab,
-  IonFabButton,
   IonIcon,
   IonInput,
   IonItem,
@@ -24,11 +22,10 @@ import {
   cashOutline,
   walletOutline,
   listOutline,
-  addOutline,
 } from "ionicons/icons";
 import "../theme/invoice.css";
 
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import InvoiceModel from "../models/Invoice";
@@ -36,6 +33,7 @@ import InvoiceInterface from "../interfaces/Invoice";
 import UrlHelper from "../helpers/UrlHelper";
 import FormatHelper from "../helpers/FormatHelper";
 import ConceptInterface from "../interfaces/Concept";
+import Footer from "../components/Footer";
 
 const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
   const buttonTitle = props.action == "edit" ? "Guardar" : "Crear";
@@ -155,237 +153,229 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
   };
 
   return (
-    <form className="ion-padding" onSubmit={onSubmit}>
-      <IonItem>
-        <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
-        <IonLabel>
-          Factura{" "}
-          {FormatHelper.PrintInvoiceTitle(invoice.year, invoice.invoice_id) ??
-            ""}
-        </IonLabel>
-      </IonItem>
-
-      <IonItem>
-        <IonIcon slot="start" icon={calendarNumberOutline}></IonIcon>
-        <IonDatetime
-          displayFormat="DD-MM-YYYY HH:mm"
-          value={invoice.date ?? ""}
-          placeholder="Fecha"
-          onIonChange={(e): void => {
-            setValue("date", e.detail.value ?? "");
-            setValue(
-              "year",
-              e.detail.value ? Number(e.detail.value.substring(0, 4)) : 0
-            );
-          }}
-          cancelText="Cancelar"
-          doneText="Aceptar"
-        ></IonDatetime>
-      </IonItem>
-
-      <IonItem>
-        <IonIcon slot="start" icon={cashOutline}></IonIcon>
-        <IonInput
-          value={invoice.iva ?? ""}
-          placeholder="% IVA"
-          onIonChange={(e): void => {
-            setValue("iva", e.detail.value ? Number(e.detail.value) : 21);
-          }}
-        ></IonInput>
-      </IonItem>
-
-      <IonItem>
-        <IonIcon slot="start" icon={walletOutline}></IonIcon>
-        <IonSelect
-          value={invoice.payment ?? ""}
-          placeholder="Pago"
-          onIonChange={(e) => setValue("payment", Number(e.detail.value) ?? "")}
-          okText="Aceptar"
-          cancelText="Cancelar"
-        >
-          <IonLabel>Pago</IonLabel>
-          <IonSelectOption key={1} value={1}>
-            Efectivo
-          </IonSelectOption>
-          <IonSelectOption key={2} value={2}>
-            Transferencia
-          </IonSelectOption>
-        </IonSelect>
-      </IonItem>
-
-      <IonItem lines="none">
-        <IonIcon slot="start" icon={listOutline}></IonIcon>
-        <IonTextarea
-          rows={4}
-          value={invoice.comment ?? ""}
-          placeholder="Observaciones"
-          onIonChange={(e): void => {
-            setValue("comment", e.detail.value ?? "");
-          }}
-        ></IonTextarea>
-      </IonItem>
-
-      <IonItem className="ion-text-center" lines="none">
-        <IonLabel>
-          <IonButton
-            className="ion-margin-top customer-edit-button"
-            color="warning"
-            type="submit"
-          >
-            {buttonTitle}
-          </IonButton>
-        </IonLabel>
-        {props.action == "edit" ? (
+    <Fragment>
+      <form className="ion-padding" onSubmit={onSubmit}>
+        <IonItem>
+          <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
           <IonLabel>
-            <IonButton
-              className="ion-margin-top customer-delete-button"
-              color="danger"
-              onClick={() =>
-                confirm({
-                  header: "Eliminar factura",
-                  message: "¿Estás seguro?",
-                  buttons: [
-                    "Cancelar",
-                    { text: "Confirmar", handler: (d) => deleteInvoice() },
-                  ],
-                })
-              }
-            >
-              Borrar
-            </IonButton>
+            Factura{" "}
+            {FormatHelper.PrintInvoiceTitle(invoice.year, invoice.invoice_id) ??
+              ""}
           </IonLabel>
-        ) : (
-          ""
-        )}
-      </IonItem>
-
-      {invoice.concepts && invoice.concepts.length > 0 ? (
-        <IonItem className="ion-text-center" lines="none" color="primary">
-          <IonLabel>Conceptos</IonLabel>
         </IonItem>
-      ) : (
-        ""
-      )}
-      {invoice.concepts && invoice.concepts.length > 0
-        ? invoice.concepts.map((concept: any, index: number) => (
-            <IonCard>
-              <IonItem className="concept-text">
-                <IonTextarea
-                  rows={4}
-                  value={concept.concept ?? ""}
-                  placeholder="Concepto"
-                  onIonChange={(e): void => {
-                    const newConcepts = JSON.parse(
-                      JSON.stringify(invoice.concepts)
-                    );
-                    newConcepts[index].concept = e.detail.value ?? "";
-                    setValue("concepts", newConcepts);
-                  }}
-                ></IonTextarea>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Uds: </IonLabel>
-                <IonInput
-                  value={concept.units ?? ""}
-                  onIonChange={(e): void => {
-                    const newConcepts = JSON.parse(
-                      JSON.stringify(invoice.concepts)
-                    );
-                    newConcepts[index].units = Number(e.detail.value) ?? "";
-                    setValue("concepts", newConcepts);
-                  }}
-                ></IonInput>
-                <IonInput
-                  value={concept.base ? concept.base + " €" : ""}
-                  placeholder="Base"
-                  onIonChange={(e): void => {
-                    const newConcepts = JSON.parse(
-                      JSON.stringify(invoice.concepts)
-                    );
-                    newConcepts[index].base = Number(
-                      e.detail.value ? e.detail.value.replace("€", "") : ""
-                    );
-                    setValue("concepts", newConcepts);
-                  }}
-                ></IonInput>
-              </IonItem>
-            </IonCard>
-          ))
-        : ""}
 
-      <IonPopover
-        cssClass="concept-popover"
-        event={popoverState.event}
-        isOpen={popoverState.showPopover}
-        onDidDismiss={() =>
-          setShowPopover({ showPopover: false, event: undefined })
-        }
-      >
-        <IonToolbar color="warning">
-          <IonTitle className="ion-text-center">Nuevo concepto</IonTitle>
-        </IonToolbar>
-        <IonItem className="concept-text">
-          <IonTextarea
-            rows={6}
-            placeholder="Concepto"
+        <IonItem>
+          <IonIcon slot="start" icon={calendarNumberOutline}></IonIcon>
+          <IonDatetime
+            displayFormat="DD-MM-YYYY HH:mm"
+            value={invoice.date ?? ""}
+            placeholder="Fecha"
             onIonChange={(e): void => {
-              addConcept("concept", e.detail.value ?? "");
+              setValue("date", e.detail.value ?? "");
+              setValue(
+                "year",
+                e.detail.value ? Number(e.detail.value.substring(0, 4)) : 0
+              );
+            }}
+            cancelText="Cancelar"
+            doneText="Aceptar"
+          ></IonDatetime>
+        </IonItem>
+
+        <IonItem>
+          <IonIcon slot="start" icon={cashOutline}></IonIcon>
+          <IonInput
+            value={invoice.iva ?? ""}
+            placeholder="% IVA"
+            onIonChange={(e): void => {
+              setValue("iva", e.detail.value ? Number(e.detail.value) : 21);
+            }}
+          ></IonInput>
+        </IonItem>
+
+        <IonItem>
+          <IonIcon slot="start" icon={walletOutline}></IonIcon>
+          <IonSelect
+            value={invoice.payment ?? ""}
+            placeholder="Pago"
+            onIonChange={(e) => setValue("payment", Number(e.detail.value) ?? "")}
+            okText="Aceptar"
+            cancelText="Cancelar"
+          >
+            <IonLabel>Pago</IonLabel>
+            <IonSelectOption key={1} value={1}>
+              Efectivo
+            </IonSelectOption>
+            <IonSelectOption key={2} value={2}>
+              Transferencia
+            </IonSelectOption>
+          </IonSelect>
+        </IonItem>
+
+        <IonItem lines="none">
+          <IonIcon slot="start" icon={listOutline}></IonIcon>
+          <IonTextarea
+            rows={4}
+            value={invoice.comment ?? ""}
+            placeholder="Observaciones"
+            onIonChange={(e): void => {
+              setValue("comment", e.detail.value ?? "");
             }}
           ></IonTextarea>
         </IonItem>
-        <IonItem>
-          <IonInput
-            placeholder="Unidades"
-            onIonChange={(e): void => {
-              addConcept("units", e.detail.value ?? "");
-            }}
-          ></IonInput>
-          <IonInput
-            placeholder="Base"
-            onIonChange={(e): void => {
-              addConcept("base", e.detail.value ?? "");
-            }}
-          ></IonInput>
-        </IonItem>
-        <IonItem className="ion-text-center ion-margin-top">
-          <IonButton
-            color="primary"
-            type="submit"
-            onClick={() => {
-              pushConcept();
-              setShowPopover({ showPopover: false, event: undefined });
-              onSubmit();
-            }}
-          >
-            Añadir
-          </IonButton>
-        </IonItem>
-      </IonPopover>
 
-      {props.action == "edit" ? (
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton
-            onClick={(e: any) => {
-              e.persist();
-              setShowPopover({ showPopover: true, event: e });
-            }}
-          >
-            <IonIcon icon={addOutline} />
-          </IonFabButton>
-        </IonFab>
-      ) : (
-        ""
-      )}
+        <IonItem className="ion-text-center" lines="none">
+          <IonLabel>
+            <IonButton
+              className="ion-margin-top customer-edit-button"
+              color="warning"
+              type="submit"
+            >
+              {buttonTitle}
+            </IonButton>
+          </IonLabel>
+          {props.action == "edit" ? (
+            <IonLabel>
+              <IonButton
+                className="ion-margin-top customer-delete-button"
+                color="danger"
+                onClick={() =>
+                  confirm({
+                    header: "Eliminar factura",
+                    message: "¿Estás seguro?",
+                    buttons: [
+                      "Cancelar",
+                      { text: "Confirmar", handler: (d) => deleteInvoice() },
+                    ],
+                  })
+                }
+              >
+                Borrar
+              </IonButton>
+            </IonLabel>
+          ) : (
+            ""
+          )}
+        </IonItem>
 
-      <IonAlert
-        isOpen={showAlert}
-        onDidDismiss={() => setShowAlert(false)}
-        cssClass="my-custom-class"
-        header={"Error"}
-        message={alertText}
-        buttons={["OK"]}
-      />
-    </form>
+        {invoice.concepts && invoice.concepts.length > 0 ? (
+          <IonItem className="ion-text-center" lines="none" color="primary">
+            <IonLabel>Conceptos</IonLabel>
+          </IonItem>
+        ) : (
+          ""
+        )}
+        {invoice.concepts && invoice.concepts.length > 0
+          ? invoice.concepts.map((concept: any, index: number) => (
+              <IonCard>
+                <IonItem className="concept-text">
+                  <IonTextarea
+                    rows={4}
+                    value={concept.concept ?? ""}
+                    placeholder="Concepto"
+                    onIonChange={(e): void => {
+                      const newConcepts = JSON.parse(
+                        JSON.stringify(invoice.concepts)
+                      );
+                      newConcepts[index].concept = e.detail.value ?? "";
+                      setValue("concepts", newConcepts);
+                    }}
+                  ></IonTextarea>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Uds: </IonLabel>
+                  <IonInput
+                    value={concept.units ?? ""}
+                    onIonChange={(e): void => {
+                      const newConcepts = JSON.parse(
+                        JSON.stringify(invoice.concepts)
+                      );
+                      newConcepts[index].units = Number(e.detail.value) ?? "";
+                      setValue("concepts", newConcepts);
+                    }}
+                  ></IonInput>
+                  <IonInput
+                    value={concept.base ? concept.base + " €" : ""}
+                    placeholder="Base"
+                    onIonChange={(e): void => {
+                      const newConcepts = JSON.parse(
+                        JSON.stringify(invoice.concepts)
+                      );
+                      newConcepts[index].base = Number(
+                        e.detail.value ? e.detail.value.replace("€", "") : ""
+                      );
+                      setValue("concepts", newConcepts);
+                    }}
+                  ></IonInput>
+                </IonItem>
+              </IonCard>
+            ))
+          : ""}
+
+        <IonPopover
+          cssClass="concept-popover"
+          event={popoverState.event}
+          isOpen={popoverState.showPopover}
+          onDidDismiss={() =>
+            setShowPopover({ showPopover: false, event: undefined })
+          }
+        >
+          <IonToolbar color="warning">
+            <IonTitle className="ion-text-center">Nuevo concepto</IonTitle>
+          </IonToolbar>
+          <IonItem className="concept-text">
+            <IonTextarea
+              rows={6}
+              placeholder="Concepto"
+              onIonChange={(e): void => {
+                addConcept("concept", e.detail.value ?? "");
+              }}
+            ></IonTextarea>
+          </IonItem>
+          <IonItem>
+            <IonInput
+              placeholder="Unidades"
+              onIonChange={(e): void => {
+                addConcept("units", e.detail.value ?? "");
+              }}
+            ></IonInput>
+            <IonInput
+              placeholder="Base"
+              onIonChange={(e): void => {
+                addConcept("base", e.detail.value ?? "");
+              }}
+            ></IonInput>
+          </IonItem>
+          <IonItem className="ion-text-center ion-margin-top">
+            <IonButton
+              color="primary"
+              type="submit"
+              onClick={() => {
+                pushConcept();
+                setShowPopover({ showPopover: false, event: undefined });
+                onSubmit();
+              }}
+            >
+              Añadir
+            </IonButton>
+          </IonItem>
+        </IonPopover>
+
+        <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          cssClass="my-custom-class"
+          header={"Error"}
+          message={alertText}
+          buttons={["OK"]}
+        />
+      </form>
+
+      <Footer
+      popoverState={popoverState}
+      setShowPopover={setShowPopover}
+      ></Footer>
+    </Fragment>
   );
 };
 
