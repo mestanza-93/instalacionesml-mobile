@@ -10,17 +10,13 @@ const BudgetsWork: React.FC<BudgetListInterface> = (props) => {
 
   return (
     <IonContent>
-      {budgets && budgets.length > 0 ? (
-        <IonItem className="ion-text-center" lines="none" color="primary">
-          <IonLabel>Presupuestos</IonLabel>
-        </IonItem>
-      ) : (
-        ""
-      )}
+      <IonItem className="ion-text-center" lines="none" color="primary">
+        <IonLabel>Presupuestos</IonLabel>
+      </IonItem>
       <IonList>
         {budgets && budgets.length > 0
           ? budgets.map((budget: any) => (
-              <IonItem href={UrlHelper.MakeUrl("invoice", budget._id)}>
+              <IonItem href={UrlHelper.MakeUrl("budget", budget._id)}>
                 <IonIcon icon={folderOutline} slot="start" />
                 <IonLabel>
                   <h2>

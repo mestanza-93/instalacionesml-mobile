@@ -56,7 +56,10 @@ const WorkProfile: React.FC = () => {
   /**
    * Initialize list data
    */
-  if (Object.keys(invoicesData).length > 0 && Object.keys(invoices).length === 0) {
+  if (
+    Object.keys(invoicesData).length > 0 &&
+    Object.keys(invoices).length === 0
+  ) {
     setInvoices(invoicesData);
   }
 
@@ -74,7 +77,10 @@ const WorkProfile: React.FC = () => {
   /**
    * Initialize list data
    */
-  if (Object.keys(budgetsData).length > 0 && Object.keys(budgets).length === 0) {
+  if (
+    Object.keys(budgetsData).length > 0 &&
+    Object.keys(budgets).length === 0
+  ) {
     setBudgets(budgetsData);
   }
 
@@ -82,8 +88,18 @@ const WorkProfile: React.FC = () => {
     <IonContent>
       <Header {...header}></Header>
       <WorkForm {...work}></WorkForm>
-      <InvoicesWork {...invoices}></InvoicesWork>
-      <BudgetsWork {...budgets}></BudgetsWork>
+      
+      {invoices.invoices && invoices.invoices.length > 0 ? (
+        <InvoicesWork {...invoices}></InvoicesWork>
+      ) : (
+        ""
+      )}
+
+      {budgets.budgets && budgets.budgets.length > 0 ? (
+        <BudgetsWork {...budgets}></BudgetsWork>
+      ) : (
+        ""
+      )}
     </IonContent>
   );
 };
