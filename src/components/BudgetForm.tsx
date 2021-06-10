@@ -3,6 +3,8 @@ import {
   IonButton,
   IonCard,
   IonDatetime,
+  IonFab,
+  IonFabButton,
   IonIcon,
   IonInput,
   IonItem,
@@ -22,6 +24,7 @@ import {
   cashOutline,
   walletOutline,
   listOutline,
+  closeOutline,
 } from "ionicons/icons";
 import "../theme/invoice.css";
 
@@ -270,6 +273,34 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
         {budget.concepts && budget.concepts.length > 0
           ? budget.concepts.map((concept: any, index: number) => (
               <IonCard>
+                <IonFab vertical="top" horizontal="end">
+                  <IonFabButton
+                    size="small"
+                    color="light"
+                    onClick={() => {
+                      confirm({
+                        header: "Eliminar concepto",
+                        message: "¿Estás seguro?",
+                        buttons: [
+                          "Cancelar",
+                          {
+                            text: "Confirmar",
+                            handler: (d) => {
+                              const newConcepts = JSON.parse(
+                                JSON.stringify(budget.concepts)
+                              );
+                              newConcepts.splice(index, 1);
+                              setValue("concepts", newConcepts);
+                              onSubmit();
+                            },
+                          },
+                        ],
+                      });
+                    }}
+                  >
+                    <IonIcon icon={closeOutline} color="dark" />
+                  </IonFabButton>
+                </IonFab>
                 <IonItem className="concept-text">
                   <IonTextarea
                     rows={4}
