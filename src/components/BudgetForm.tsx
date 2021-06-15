@@ -404,10 +404,15 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
         />
       </form>
 
-      <Footer
-        popoverState={popoverState}
-        setShowPopover={setShowPopover}
-      ></Footer>
+      {props.action == "edit" ? (
+        <Footer
+          section="budget"
+          popoverState={popoverState}
+          setShowPopover={setShowPopover}
+        ></Footer>
+      ) : (
+        ""
+      )}
     </Fragment>
   );
 };

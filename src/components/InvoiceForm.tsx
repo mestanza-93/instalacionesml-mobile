@@ -157,7 +157,7 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
   };
 
   return (
-    <Fragment>
+    <div>
       <form className="ion-padding" onSubmit={onSubmit}>
         <IonItem>
           <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
@@ -405,11 +405,16 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
         />
       </form>
 
-      <Footer
-        popoverState={popoverState}
-        setShowPopover={setShowPopover}
-      ></Footer>
-    </Fragment>
+      {props.action == "edit" ? (
+        <Footer
+          section="invoice"
+          popoverState={popoverState}
+          setShowPopover={setShowPopover}
+        ></Footer>
+      ) : (
+        ""
+      )}
+    </div>
   );
 };
 

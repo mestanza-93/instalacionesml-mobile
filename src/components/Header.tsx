@@ -8,6 +8,7 @@ import {
   IonBackButton,
 } from "@ionic/react";
 import HeaderInterface from "../interfaces/Header";
+import { arrowBack } from "ionicons/icons";
 
 const Header: React.FC<HeaderInterface> = (props) => {
   return (
@@ -20,7 +21,7 @@ const Header: React.FC<HeaderInterface> = (props) => {
         
         {props.backUrl && props.backName ? 
           <IonButtons slot="end">
-             <IonBackButton defaultHref={props.backUrl} text={props.backName} icon="arrowForward"></IonBackButton>
+             <IonBackButton defaultHref={props.backUrl} text={props.backName} icon={arrowBack}></IonBackButton>
           </IonButtons>
         : ""}
       </IonToolbar>

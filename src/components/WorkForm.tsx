@@ -3,7 +3,6 @@ import {
   IonButton,
   IonDatetime,
   IonIcon,
-  IonInput,
   IonItem,
   IonLabel,
   IonTextarea,
@@ -16,6 +15,7 @@ import WorkInterface from "../interfaces/Work";
 import UrlHelper from "../helpers/UrlHelper";
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
+import Footer from "./Footer";
 
 const WorkForm: React.FC<WorkInterface> = (props) => {
   const buttonTitle = props.action == "edit" ? "Editar" : "Crear";
@@ -85,80 +85,87 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
   });
 
   const deleteWork = () => {
-    deleteHandler({ variables: {_id: work._id} });
+    deleteHandler({ variables: { _id: work._id } });
   };
 
   return (
-    <form className="ion-padding" onSubmit={onSubmit}>
-      <IonItem>
-        <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
-        <IonTextarea
-          rows={6}
-          value={work.name ?? ""}
-          placeholder="Descripción"
-          onIonChange={(e): void => {
-            setValue("name", e.detail.value ?? "");
-          }}
-        ></IonTextarea>
-      </IonItem>
+    <div>
+      <form className="ion-padding" onSubmit={onSubmit}>
+        <IonItem>
+          <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
+          <IonTextarea
+            rows={6}
+            value={work.name ?? ""}
+            placeholder="Descripción"
+            onIonChange={(e): void => {
+              setValue("name", e.detail.value ?? "");
+            }}
+          ></IonTextarea>
+        </IonItem>
 
-      <IonItem>
-        <IonIcon slot="start" icon={calendarNumberOutline}></IonIcon>
-        <IonDatetime
-          displayFormat="DD-MM-YYYY HH:mm"
-          value={work.date ?? ""}
-          placeholder="Fecha"
-          onIonChange={(e): void => {
-            setValue("date", e.detail.value ?? "");
-          }}
-          cancelText="Cancelar"
-          doneText="Aceptar"
-        ></IonDatetime>
-      </IonItem>
+        <IonItem>
+          <IonIcon slot="start" icon={calendarNumberOutline}></IonIcon>
+          <IonDatetime
+            displayFormat="DD-MM-YYYY HH:mm"
+            value={work.date ?? ""}
+            placeholder="Fecha"
+            onIonChange={(e): void => {
+              setValue("date", e.detail.value ?? "");
+            }}
+            cancelText="Cancelar"
+            doneText="Aceptar"
+          ></IonDatetime>
+        </IonItem>
 
-      <IonItem className="ion-text-center" lines="none">
-        <IonLabel>
-          <IonButton
-            className="ion-margin-top work-edit-button"
-            color="warning"
-            type="submit"
-          >
-            {buttonTitle}
-          </IonButton>
-        </IonLabel>
-        {props.action == "edit" ? (
+        <IonItem className="ion-text-center" lines="none">
           <IonLabel>
             <IonButton
-              className="ion-margin-top work-delete-button"
-              color="danger"
-              onClick={() => 
-                confirm({
-                  header: 'Eliminar trabajo',
-                  message: '¿Estás seguro?',
-                  buttons: [
-                    'Cancelar',
-                    { text: 'Confirmar', handler: (d) => deleteWork() },
-                  ],
-                })
-              }
+              className="ion-margin-top work-edit-button"
+              color="warning"
+              type="submit"
             >
-              Borrar
+              {buttonTitle}
             </IonButton>
           </IonLabel>
-        ) : (
-          ""
-        )}
-      </IonItem>
+          {props.action == "edit" ? (
+            <IonLabel>
+              <IonButton
+                className="ion-margin-top work-delete-button"
+                color="danger"
+                onClick={() =>
+                  confirm({
+                    header: "Eliminar trabajo",
+                    message: "¿Estás seguro?",
+                    buttons: [
+                      "Cancelar",
+                      { text: "Confirmar", handler: (d) => deleteWork() },
+                    ],
+                  })
+                }
+              >
+                Borrar
+              </IonButton>
+            </IonLabel>
+          ) : (
+            ""
+          )}
+        </IonItem>
 
-      <IonAlert
-        isOpen={showAlert}
-        onDidDismiss={() => setShowAlert(false)}
-        cssClass="my-custom-class"
-        header={"Error"}
-        message={alertText}
-        buttons={["OK"]}
-      />
-    </form>
+        <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          cssClass="my-custom-class"
+          header={"Error"}
+          message={alertText}
+          buttons={["OK"]}
+        />
+      </form>
+      {props.action == "edit" ? (
+        <Footer section="work" workId={work._id}></Footer>
+      ) : (
+        ""
+      )}
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   IonButton,
+  IonCard,
   IonContent,
   IonIcon,
   IonItem,
@@ -14,6 +15,7 @@ import FormatHelper from "../helpers/FormatHelper";
 import "../theme/customer-item.css";
 import { listOutline } from "ionicons/icons";
 import { useParams } from "react-router";
+import Footer from "./Footer";
 
 const CustomerWorks: React.FC<WorksListInterface> = (props) => {
   let works = props.works;
@@ -24,33 +26,24 @@ const CustomerWorks: React.FC<WorksListInterface> = (props) => {
   let customerId = params.id ?? null;
 
   return (
-    <IonContent>
-      <IonItem className="ion-text-center" lines="none">
-        <IonLabel>
-          <IonButton
-            className="ion-margin-top"
-            color="primary"
-            href={UrlHelper.MakeUrl("create-work", customerId)}
-          >
-            Nuevo trabajo
-          </IonButton>
-        </IonLabel>
-      </IonItem>
-
+    <div>
       <IonList>
         {works && works.length > 0
           ? works.map((work: any) => (
-              <IonItem href={UrlHelper.MakeUrl("work", work._id)}>
-                <IonIcon icon={listOutline} slot="start" />
-                <IonLabel>
-                  <h2>{work.name ?? ""}</h2>
-                  <p>{work.date ? FormatHelper.FormatDate(work.date) : ""}</p>
-                </IonLabel>
-              </IonItem>
+              <IonCard>
+                <IonItem href={UrlHelper.MakeUrl("work", work._id)}>
+                  <IonIcon icon={listOutline} slot="start" />
+                  <IonLabel>
+                    <h2>{work.name ?? ""}</h2>
+                    <p>{work.date ? FormatHelper.FormatDate(work.date) : ""}</p>
+                  </IonLabel>
+                </IonItem>
+              </IonCard>
             ))
           : ""}
       </IonList>
-    </IonContent>
+      <Footer customerId={customerId} section="work"></Footer>
+    </div>
   );
 };
 

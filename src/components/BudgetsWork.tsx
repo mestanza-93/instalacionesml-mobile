@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonItem, IonLabel, IonList } from "@ionic/react";
+import { IonCard, IonContent, IonIcon, IonItem, IonLabel, IonList } from "@ionic/react";
 import { folderOutline } from "ionicons/icons";
 import React from "react";
 import FormatHelper from "../helpers/FormatHelper";
@@ -16,21 +16,23 @@ const BudgetsWork: React.FC<BudgetListInterface> = (props) => {
       <IonList>
         {budgets && budgets.length > 0
           ? budgets.map((budget: any) => (
-              <IonItem href={UrlHelper.MakeUrl("budget", budget._id)}>
-                <IonIcon icon={folderOutline} slot="start" />
-                <IonLabel>
-                  <h2>
-                    Presupuesto{" "}
-                    {FormatHelper.PrintInvoiceTitle(
-                      budget.year,
-                      budget.budget_id
-                    )}
-                  </h2>
-                  <p>
-                    {budget.date ? FormatHelper.FormatDate(budget.date) : ""}
-                  </p>
-                </IonLabel>
-              </IonItem>
+              <IonCard>
+                <IonItem href={UrlHelper.MakeUrl("budget", budget._id)}>
+                  <IonIcon icon={folderOutline} slot="start" />
+                  <IonLabel>
+                    <h2>
+                      Presupuesto{" "}
+                      {FormatHelper.PrintInvoiceTitle(
+                        budget.year,
+                        budget.budget_id
+                      )}
+                    </h2>
+                    <p>
+                      {budget.date ? FormatHelper.FormatDate(budget.date) : ""}
+                    </p>
+                  </IonLabel>
+                </IonItem>
+              </IonCard>
             ))
           : ""}
       </IonList>
