@@ -3,12 +3,13 @@ import { IonContent } from "@ionic/react";
 import { useParams } from "react-router";
 import Header from "../components/Header";
 import CustomerForm from "../components/CustomerForm";
+import CustomerWorks from "../components/CustomerWorks";
+import Footer from "../components/Footer";
 import CustomerModel from "../models/Customer";
 import WorkModel from "../models/Work";
 import ParamsInterface from "../interfaces/UrlParams";
 import CustomerInterface from "../interfaces/Customer";
 import WorksListInterface from "../interfaces/WorksList";
-import CustomerWorks from "../components/CustomerWorks";
 import FilterInterface from "../interfaces/Filters";
 import HeaderInterface from "../interfaces/Header";
 
@@ -59,6 +60,7 @@ const CustomerProfile: React.FC = () => {
       <Header {...header}></Header>
       <CustomerForm {...customer}></CustomerForm>
       <CustomerWorks {...works}></CustomerWorks>
+      <Footer customerId={id} section="customer"></Footer>
     </IonContent>
   );
 };

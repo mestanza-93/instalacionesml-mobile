@@ -12,7 +12,7 @@ import UrlHelper from "../helpers/UrlHelper";
 
 const Footer: React.FC<any> = (props) => {
   return (
-    <IonContent className="ion-padding-top">
+    <div className="ion-padding-top">
       {props.section == "invoice" || props.section == "budget" ? (
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
@@ -31,16 +31,18 @@ const Footer: React.FC<any> = (props) => {
           </IonFabButton>
           <IonFabList side="start">
             <IonButton
-              href={UrlHelper.MakeUrl("create-invoice", props.workId)}
-              size="small"
-            >
-              Factura
-            </IonButton>
-            <IonButton
               href={UrlHelper.MakeUrl("create-budget", props.workId)}
               size="small"
+              color="dark"
             >
               Presupuesto
+            </IonButton>
+            <IonButton
+              href={UrlHelper.MakeUrl("create-invoice", props.workId)}
+              size="small"
+              color="warning"
+            >
+              Factura
             </IonButton>
           </IonFabList>
         </IonFab>
@@ -55,7 +57,7 @@ const Footer: React.FC<any> = (props) => {
       ) : (
         ""
       )}
-    </IonContent>
+    </div>
   );
 };
 

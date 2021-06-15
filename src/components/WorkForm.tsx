@@ -89,83 +89,76 @@ const WorkForm: React.FC<WorkInterface> = (props) => {
   };
 
   return (
-    <div>
-      <form className="ion-padding" onSubmit={onSubmit}>
-        <IonItem>
-          <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
-          <IonTextarea
-            rows={6}
-            value={work.name ?? ""}
-            placeholder="Descripción"
-            onIonChange={(e): void => {
-              setValue("name", e.detail.value ?? "");
-            }}
-          ></IonTextarea>
-        </IonItem>
+    <form className="ion-padding" onSubmit={onSubmit}>
+      <IonItem>
+        <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
+        <IonTextarea
+          rows={6}
+          value={work.name ?? ""}
+          placeholder="Descripción"
+          onIonChange={(e): void => {
+            setValue("name", e.detail.value ?? "");
+          }}
+        ></IonTextarea>
+      </IonItem>
 
-        <IonItem>
-          <IonIcon slot="start" icon={calendarNumberOutline}></IonIcon>
-          <IonDatetime
-            displayFormat="DD-MM-YYYY HH:mm"
-            value={work.date ?? ""}
-            placeholder="Fecha"
-            onIonChange={(e): void => {
-              setValue("date", e.detail.value ?? "");
-            }}
-            cancelText="Cancelar"
-            doneText="Aceptar"
-          ></IonDatetime>
-        </IonItem>
+      <IonItem>
+        <IonIcon slot="start" icon={calendarNumberOutline}></IonIcon>
+        <IonDatetime
+          displayFormat="DD-MM-YYYY HH:mm"
+          value={work.date ?? ""}
+          placeholder="Fecha"
+          onIonChange={(e): void => {
+            setValue("date", e.detail.value ?? "");
+          }}
+          cancelText="Cancelar"
+          doneText="Aceptar"
+        ></IonDatetime>
+      </IonItem>
 
-        <IonItem className="ion-text-center" lines="none">
+      <IonItem className="ion-text-center" lines="none">
+        <IonLabel>
+          <IonButton
+            className="ion-margin-top work-edit-button"
+            color="warning"
+            type="submit"
+          >
+            {buttonTitle}
+          </IonButton>
+        </IonLabel>
+        {props.action == "edit" ? (
           <IonLabel>
             <IonButton
-              className="ion-margin-top work-edit-button"
-              color="warning"
-              type="submit"
+              className="ion-margin-top work-delete-button"
+              color="danger"
+              onClick={() =>
+                confirm({
+                  header: "Eliminar trabajo",
+                  message: "¿Estás seguro?",
+                  buttons: [
+                    "Cancelar",
+                    { text: "Confirmar", handler: (d) => deleteWork() },
+                  ],
+                })
+              }
             >
-              {buttonTitle}
+              Borrar
             </IonButton>
           </IonLabel>
-          {props.action == "edit" ? (
-            <IonLabel>
-              <IonButton
-                className="ion-margin-top work-delete-button"
-                color="danger"
-                onClick={() =>
-                  confirm({
-                    header: "Eliminar trabajo",
-                    message: "¿Estás seguro?",
-                    buttons: [
-                      "Cancelar",
-                      { text: "Confirmar", handler: (d) => deleteWork() },
-                    ],
-                  })
-                }
-              >
-                Borrar
-              </IonButton>
-            </IonLabel>
-          ) : (
-            ""
-          )}
-        </IonItem>
+        ) : (
+          ""
+        )}
+      </IonItem>
 
-        <IonAlert
-          isOpen={showAlert}
-          onDidDismiss={() => setShowAlert(false)}
-          cssClass="my-custom-class"
-          header={"Error"}
-          message={alertText}
-          buttons={["OK"]}
-        />
-      </form>
-      {props.action == "edit" ? (
-        <Footer section="work" workId={work._id}></Footer>
-      ) : (
-        ""
-      )}
-    </div>
+      <IonAlert
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        cssClass="my-custom-class"
+        header={"Error"}
+        message={alertText}
+        buttons={["OK"]}
+      />
+    </form>
   );
 };
 

@@ -15,6 +15,7 @@ import FilterInterface from "../interfaces/Filters";
 import InvoiceListInterface from "../interfaces/InvoiceList";
 import BudgetListInterface from "../interfaces/BudgetList";
 import BudgetsWork from "../components/BudgetsWork";
+import Footer from "../components/Footer";
 
 const WorkProfile: React.FC = () => {
   /**
@@ -100,6 +101,7 @@ const WorkProfile: React.FC = () => {
       ) : (
         ""
       )}
+      <Footer workId={id} section="work"></Footer>
     </IonContent>
   );
 };
