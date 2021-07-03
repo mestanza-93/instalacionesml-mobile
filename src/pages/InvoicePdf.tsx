@@ -1,14 +1,9 @@
 import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import "../theme/pdf.css";
 
-// Create Document Component
 const PDF: React.FC = () => {
-  // Create styles
   const styles = StyleSheet.create({
-    page: {
-      flexDirection: "row",
-      backgroundColor: "#E4E4E4",
-    },
     section: {
       margin: 10,
       padding: 10,
@@ -16,31 +11,14 @@ const PDF: React.FC = () => {
     },
   });
   return (
-    // <Document>
-    //   <Page size="A4" style={styles.page}>
-    //     <View style={styles.section}>
-    //       <Text>Section #1</Text>
-    //     </View>
-    //     <View style={styles.section}>
-    //       <Text>Section #2</Text>
-    //     </View>
-    //   </Page>
-    // </Document>
     <Document>
-      <Page size="A4" style={styles.page}>
-        <div id="includedContent"></div>
-        <div className="container text-center" id="buttons">
-          <button className="btn btn-primary btn-back">
-            <a href="customer.html">Volver</a>
-          </button>
-          <button className="btn btn-success btn-pdf">PDF</button>
-        </div>
-        <div className="page card card-default" id="page" data-size="A4">
+      <Page size="A4">
+        <div className="card card-default">
           <div className="card-body">
             <div className="card card-default border-0 mx-2 my-0">
               <div className="card-body">
                 <img
-                  src="../../build/invoice_logo.jpeg"
+                  src={process.env.PUBLIC_URL + "/assets/images/invoice_logo.jpeg"}
                   alt="Instalaciones ML"
                   width="160"
                   height="90"
