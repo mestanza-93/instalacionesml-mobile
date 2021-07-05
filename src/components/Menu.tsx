@@ -53,10 +53,6 @@ const Menu: React.FC = () => {
             <IonIcon icon={fileTrayStackedOutline}></IonIcon>
             <IonLabel className="menu-item">Presupuestos</IonLabel>
           </IonItem>
-          {/* <IonItem routerLink="/calendar">
-            <IonIcon icon={calendarOutline}></IonIcon>
-            <IonLabel className="menu-item">Calendario</IonLabel>
-          </IonItem> */}
           <IonItem routerLink="/user">
             <IonIcon icon={personOutline}></IonIcon>
             <IonLabel className="menu-item">Mis datos</IonLabel>
