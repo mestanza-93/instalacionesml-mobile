@@ -1,4 +1,5 @@
 import Concept from "./Concept";
+import Work from "./Work";
 
 interface BudgetInterface {
   _id: string;
@@ -11,6 +12,7 @@ interface BudgetInterface {
   comment: string;
   concepts: [Concept];
   action: string;
+  work: Work;
 }
 
 export default BudgetInterface;

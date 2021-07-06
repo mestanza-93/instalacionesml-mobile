@@ -3,9 +3,30 @@ import ModelHelper from "../helpers/ModelHelper";
 import FilterInterface from "../interfaces/Filters";
 import InvoiceListInterface from "../interfaces/InvoiceList";
 
-const GetInvoiceById = (id: string) => {
+const GetInvoiceById = (id: string, all: boolean) => {
   let invoice = [];
   let queryId = ModelHelper.FilterId(id);
+
+  let extraQuery = "";
+
+  if (all) {
+    extraQuery = `work {
+      _id
+      name
+      date
+      customer_id
+      updated_at
+      customer {
+        name
+        lastname
+        phone
+        address
+        postalcode
+        town
+        updated_at
+      }
+    }`;
+  }
 
   const query = gql`
     {
@@ -23,6 +44,7 @@ const GetInvoiceById = (id: string) => {
           base
           units
         }
+        ${extraQuery}
       }
     }
   `;

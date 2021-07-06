@@ -24,7 +24,7 @@ const InvoiceProfile: React.FC = () => {
  
    let id = params.id ?? null;
    const [invoice, setInvoice] = useState(data);
-   data = id ? InvoiceModel.GetInvoiceById(id) ?? {} : {};
+   data = id ? InvoiceModel.GetInvoiceById(id, false) ?? {} : {};
  
    header.backUrl = UrlHelper.MakeUrl('work', data.work_id);
 

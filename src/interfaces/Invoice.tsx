@@ -1,4 +1,5 @@
 import Concept from "./Concept";
+import Work from "./Work";
 
 interface InvoiceInterface {
   _id: string;
@@ -9,8 +10,12 @@ interface InvoiceInterface {
   year: number;
   payment: number;
   comment: string;
-  concepts: [Concept];
   action: string;
+  sum_iva: number;
+  sum_base: number;
+  total: number;
+  concepts: [Concept];
+  work: Work;
 }
 
 export default InvoiceInterface;

@@ -3,9 +3,30 @@ import ModelHelper from "../helpers/ModelHelper";
 import FilterInterface from "../interfaces/Filters";
 import BudgetListInterface from "../interfaces/BudgetList";
 
-const GetBudgetById = (id: string) => {
+const GetBudgetById = (id: string, all: boolean) => {
   let budget = [];
   let queryId = ModelHelper.FilterId(id);
+
+  let extraQuery = "";
+
+  if (all) {
+    extraQuery = `work {
+      _id
+      name
+      date
+      customer_id
+      updated_at
+      customer {
+        name
+        lastname
+        phone
+        address
+        postalcode
+        town
+        updated_at
+      }
+    }`;
+  }
 
   const query = gql`
     {
@@ -23,6 +44,7 @@ const GetBudgetById = (id: string) => {
           base
           units
         }
+        ${extraQuery}
       }
     }
   `;
@@ -55,6 +77,10 @@ const GetBudgets = (filters: FilterInterface) => {
           concept
           base
           units
+        }
+        work {
+          _id
+          name
         }
       }
     }

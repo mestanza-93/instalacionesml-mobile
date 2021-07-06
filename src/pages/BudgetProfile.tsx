@@ -23,7 +23,7 @@ const BudgetProfile: React.FC = () => {
 
   let id = params.id ?? null;
   const [budget, setBudget] = useState(data);
-  data = id ? BudgetModel.GetBudgetById(id) ?? {} : {};
+  data = id ? BudgetModel.GetBudgetById(id, false) ?? {} : {};
 
   header.backUrl = UrlHelper.MakeUrl("work", data.work_id);
 

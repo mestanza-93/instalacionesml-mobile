@@ -41,6 +41,10 @@ const GetWorkById = (id: string) => {
         date
         customer_id
         updated_at
+        customer {
+          _id
+          name
+        }
       }
     }
   `;
