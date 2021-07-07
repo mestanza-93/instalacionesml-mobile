@@ -7,6 +7,7 @@ import UserModel from "../models/User";
 import InvoiceModel from "../models/Invoice";
 import UserInterface from "../interfaces/User";
 import InvoiceInterface from "../interfaces/Invoice";
+import FormatHelper from "../helpers/FormatHelper";
 
 const InvoicePdf: React.FC = () => {
   let params = {} as ParamsInterface;
@@ -56,9 +57,9 @@ const InvoicePdf: React.FC = () => {
       invoiceAux.total += (sum_base + sum_iva);
     });
 
-    invoiceAux.sum_base = parseFloat(invoiceAux.sum_base.toFixed(2));
-    invoiceAux.sum_iva = parseFloat(invoiceAux.sum_iva.toFixed(2));
-    invoiceAux.total = parseFloat(invoiceAux.total.toFixed(2));
+    invoiceAux.sum_base = FormatHelper.RoundNumber(invoiceAux.sum_base, 2);
+    invoiceAux.sum_iva = FormatHelper.RoundNumber(invoiceAux.sum_iva, 2);
+    invoiceAux.total = FormatHelper.RoundNumber(invoiceAux.total, 2);
       
     setInvoice(invoiceAux);
     pdf.invoice = invoiceAux;

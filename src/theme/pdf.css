@@ -1,73 +1,181 @@
 div.page {
-    background: white;
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 0.5cm;
-    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-  }
-  div.page[data-size="A4"] {  
-    width: 21cm;
-    height: 29.7cm; 
-  }
-  
-  .basic {
-    font-family: "Arial";
-    font-size: 12px;
-  }
-  
-  .invoice-title {
-    font-size: 30px;
-  }
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+}
+div.page[data-size="A4"] {
+  width: 21cm;
+  height: 29.7cm;
+}
 
-  .budget-title {
-    font-size: 30px;
-  }
-  
-  .bigtext {
-    font-size: 18px;
-  }
-  
-  .medium-text {
-    font-size: 14px;
-  }
-  
-  .small-text {
-    font-size: 10px;
-  }
-  
-  .bold {
-    font-weight: bold;
-  }
-  
-  .normal {
-    font-weight: normal;
-  }
-  
-  .borderless td, .borderless th {
-      border: none;
-  }
-  
-  .table-customer {
-     border: 1px solid black;
-  }
-  
-  .card-head {
-    margin-left: 20px;
-  }
-  
-  .card-footer {
-    position: absolute;
-    bottom: 0;
-  }
-  
-  table.table-bordered > thead > tr > th{
-    border:1px solid black;
-  }
-  
-  table.table-bordered > tbody > tr > td{
-    border:1px solid black;
-  }
-  
-  th {
-    background-color: #D3D3D3;
-  }
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.align-middle {
+  vertical-align: middle;
+}
+
+.mx-0 {
+  margin-left: 0;
+  margin-right: 0;
+}
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.mx-3 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.mx-4 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+.mx-5 {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+.my-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.my-3 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.my-4 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.my-5 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.ml-5 {
+  margin-left: 3rem;
+}
+.mr-5 {
+  margin-left: 3rem;
+}
+.px-1 {
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
+}
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+.pb-0 {
+  padding-bottom: 0%;
+}
+
+.w100 {
+  width: 100%;
+}
+.w85 {
+  width: 85%;
+}
+.w65 {
+  width: 65%;
+}
+.w35 {
+  width: 35%;
+}
+.w34 {
+  width: 34%;
+}
+.w15 {
+  width: 15%;
+}
+.w12 {
+  width: 12%;
+}
+.w10 {
+  width: 10%;
+}
+
+.basic {
+  font-family: "Arial";
+  font-size: 12px;
+}
+
+.invoice-title {
+  font-size: 30px;
+}
+
+.budget-title {
+  font-size: 30px;
+}
+
+.bigtext {
+  font-size: 18px;
+}
+
+.medium-text {
+  font-size: 14px;
+}
+
+.small-text {
+  font-size: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.borderless td,
+.borderless th {
+  border: none;
+}
+
+.table-customer {
+  border: 1px solid black;
+}
+
+.card-head {
+  margin-left: 20px;
+}
+
+.card-footer {
+  position: absolute;
+  bottom: 0;
+}
+
+table.table-bordered > thead > tr > th {
+  border: 1px solid black;
+}
+
+table.table-bordered > tbody > tr > td {
+  border: 1px solid black;
+}
+
+th {
+  background-color: #d3d3d3;
+}

@@ -34,4 +34,14 @@ const PrintInvoiceTitle = (year: number, id: number) => {
   return year && id ? year + "-" + FormatZero(id) : FormatZero(id);
 };
 
-export default { FormatDate, FormatCurrency, FormatZero, PrintInvoiceTitle };
+const RoundNumber = (num: number, decimals: number) => {
+  return parseFloat(num.toFixed(decimals));
+};
+
+export default {
+  FormatDate,
+  FormatCurrency,
+  FormatZero,
+  PrintInvoiceTitle,
+  RoundNumber,
+};
