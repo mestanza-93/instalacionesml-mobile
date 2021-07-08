@@ -1,10 +1,35 @@
 const FormatDate = (date: string) => {
   let formatted = "";
-  let dateObject = new Date(date);
+  let dateObject = undefined;
+
+  if (date) {
+    dateObject = new Date(date);
+  } else {
+    dateObject = new Date();
+  }
 
   formatted = new Intl.DateTimeFormat("es-ES", {
     year: "numeric",
     month: "short",
+    day: "2-digit",
+  }).format(dateObject);
+
+  return formatted;
+};
+
+const FormatDatePdf = (date: string) => {
+  let formatted = "";
+  let dateObject = undefined;
+  
+  if (date) {
+    dateObject = new Date(date);
+  } else {
+    dateObject = new Date();
+  }
+
+  formatted = new Intl.DateTimeFormat("es-ES", {
+    year: "numeric",
+    month: "2-digit",
     day: "2-digit",
   }).format(dateObject);
 
@@ -40,6 +65,7 @@ const RoundNumber = (num: number, decimals: number) => {
 
 export default {
   FormatDate,
+  FormatDatePdf,
   FormatCurrency,
   FormatZero,
   PrintInvoiceTitle,

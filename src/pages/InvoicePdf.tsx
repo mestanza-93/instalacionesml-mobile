@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
+import ReactPDF, { PDFDownloadLink } from '@react-pdf/renderer';
 import Pdf from "../components/Pdf";
 import PdfInterface from "../interfaces/Pdf";
 import ParamsInterface from "../interfaces/UrlParams";
@@ -63,10 +64,17 @@ const InvoicePdf: React.FC = () => {
       
     setInvoice(invoiceAux);
     pdf.invoice = invoiceAux;
+    pdf.work = invoiceAux.work ?? {};
     pdf.customer = invoiceAux.work.customer ?? {};
   }
 
-  return <Pdf {...pdf}></Pdf>;
+  return (
+    <div>
+      <PDFDownloadLink document={<Pdf {...pdf}></Pdf>} fileName="test.pdf">
+        {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+      </PDFDownloadLink>
+    </div>
+  );
 };
 
 export default InvoicePdf;
