@@ -1,3 +1,5 @@
+import jspdf from "jspdf";
+
 const FormatDate = (date: string) => {
   let formatted = "";
   let dateObject = undefined;
@@ -20,7 +22,7 @@ const FormatDate = (date: string) => {
 const FormatDatePdf = (date: string) => {
   let formatted = "";
   let dateObject = undefined;
-  
+
   if (date) {
     dateObject = new Date(date);
   } else {
@@ -63,6 +65,25 @@ const RoundNumber = (num: number, decimals: number) => {
   return parseFloat(num.toFixed(decimals));
 };
 
+const GeneratePDF = (type: string, id: string) => {
+  let year = new Date().getFullYear();
+  const domtoimage = require("dom-to-image");
+
+  domtoimage
+    .toPng(document.getElementById("page"))
+    .then(function (blob: any) {
+      var createPdf = new jspdf("p", "mm", "a4");
+      var width = createPdf.internal.pageSize.getWidth();
+      var height = createPdf.internal.pageSize.getHeight();
+
+      createPdf.addImage(blob, "PNG", 0, 0, width, height, "test", "MEDIUM", 0);
+      createPdf.save(type + " " + year + "-" + id + ".pdf");
+    })
+    .catch(function (error: any) {
+      console.error("oops, something went wrong!", error);
+    });
+};
+
 export default {
   FormatDate,
   FormatDatePdf,
@@ -70,4 +91,5 @@ export default {
   FormatZero,
   PrintInvoiceTitle,
   RoundNumber,
+  GeneratePDF,
 };

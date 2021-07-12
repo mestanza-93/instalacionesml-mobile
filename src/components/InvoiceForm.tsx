@@ -25,11 +25,10 @@ import {
   walletOutline,
   listOutline,
   closeOutline,
-  closeCircleOutline,
 } from "ionicons/icons";
 import "../theme/invoice.css";
 
-import React, { Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import InvoiceModel from "../models/Invoice";
@@ -38,6 +37,7 @@ import UrlHelper from "../helpers/UrlHelper";
 import FormatHelper from "../helpers/FormatHelper";
 import ConceptInterface from "../interfaces/Concept";
 import Footer from "../components/Footer";
+import InvoicePDF from "../pages/InvoicePdf";
 
 const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
   const buttonTitle = props.action == "edit" ? "Guardar" : "Crear";
@@ -73,6 +73,7 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
   /**
    * Handler invoice actions
    */
+  const [renderPDF, setRenderPDF] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [confirm] = useIonAlert();
 
@@ -155,6 +156,8 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
     setValue("concepts", newConcepts);
     setNewConcept({} as ConceptInterface);
   };
+
+
 
   return (
     <div>
@@ -262,6 +265,18 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
           ) : (
             ""
           )}
+          <IonLabel>
+            <IonButton
+              className="ion-margin-top customer-delete-button"
+              color="success"
+              onClick={() => {
+                setRenderPDF(true);
+                console.log('Click');
+              }}
+            >
+              PDF
+            </IonButton>
+          </IonLabel>
         </IonItem>
 
         {invoice.concepts && invoice.concepts.length > 0 ? (
@@ -414,6 +429,7 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
       ) : (
         ""
       )}
+      {renderPDF ? <InvoicePDF></InvoicePDF> : null}
     </div>
   );
 };
