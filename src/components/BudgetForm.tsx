@@ -28,7 +28,7 @@ import {
 } from "ionicons/icons";
 import "../theme/invoice.css";
 
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import BudgetModel from "../models/Budget";
@@ -37,13 +37,14 @@ import UrlHelper from "../helpers/UrlHelper";
 import FormatHelper from "../helpers/FormatHelper";
 import ConceptInterface from "../interfaces/Concept";
 import Footer from "../components/Footer";
+import BudgetPDF from "../pages/BudgetPdf";
 
 const BudgetForm: React.FC<BudgetInterface> = (props) => {
   const buttonTitle = props.action == "edit" ? "Guardar" : "Crear";
   const alertText =
     props.action == "edit"
-      ? "No se ha podido editar el presupuesto"
-      : "No se ha podido crear el presupuesto";
+      ? "No se ha podido editar la factura"
+      : "No se ha podido crear la factura";
 
   /**
    * Form control
@@ -54,7 +55,7 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
   });
 
   /**
-   * Initialize Budget fields if exists
+   * Initialize budget fields if exists
    */
   const [budget, setBudget] = useState({} as BudgetInterface);
   if (Object.keys(props).length > 0 && Object.keys(budget).length === 0) {
@@ -70,15 +71,16 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
   });
 
   /**
-   * Handler Budget actions
+   * Handler budget actions
    */
+  const [renderPDF, setRenderPDF] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [confirm] = useIonAlert();
 
   const [updateHandler] = useMutation(BudgetModel.UpdateBudget(), {
     onCompleted: (response) => {
-      let BudgetResult = response.BudgetUpdateById.record ?? {};
-      setBudget(BudgetResult);
+      let budgetResult = response.BudgetUpdateById.record ?? {};
+      setBudget(budgetResult);
     },
   });
 
@@ -86,7 +88,7 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
     onCompleted: (response) => {
       let newID = response.BudgetCreateOne.record._id ?? null;
       if (newID) {
-        window.location.href = `/Budget/${newID}`;
+        window.location.href = `/budget/${newID}`;
       } else {
         setShowAlert(true);
       }
@@ -111,7 +113,7 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
     onCompleted: (response) => {
       let deletedID = response.BudgetRemoveById ?? null;
       if (deletedID) {
-        window.location.href = UrlHelper.MakeUrl("Budgets");
+        window.location.href = UrlHelper.MakeUrl("budgets");
       } else {
         setShowAlert(true);
       }
@@ -156,7 +158,7 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
   };
 
   return (
-    <Fragment>
+    <div>
       <form className="ion-padding" onSubmit={onSubmit}>
         <IonItem>
           <IonIcon slot="start" icon={documentTextOutline}></IonIcon>
@@ -256,6 +258,21 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
                 }
               >
                 Borrar
+              </IonButton>
+            </IonLabel>
+          ) : (
+            ""
+          )}
+          {props.action == "edit" ? (
+            <IonLabel>
+              <IonButton
+                className="ion-margin-top customer-delete-button"
+                color="success"
+                onClick={() => {
+                  setRenderPDF(true);
+                }}
+              >
+                PDF
               </IonButton>
             </IonLabel>
           ) : (
@@ -413,7 +430,8 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
       ) : (
         ""
       )}
-    </Fragment>
+      {renderPDF ? <BudgetPDF></BudgetPDF> : null}
+    </div>
   );
 };
 

@@ -6,6 +6,7 @@ import Work from "./Work";
 
 interface PdfInterface {
   type: String;
+  item_id: number;
   invoice: Invoice;
   budget: Budget;
   work: Work;

@@ -8,12 +8,14 @@ import InvoiceModel from "../models/Invoice";
 import UserInterface from "../interfaces/User";
 import InvoiceInterface from "../interfaces/Invoice";
 import FormatHelper from "../helpers/FormatHelper";
+import BudgetInterface from "../interfaces/Budget";
 
 const InvoicePdf: React.FC = () => {
   let params = {} as ParamsInterface;
   let data = {} as PdfInterface;
   let userData = {} as UserInterface;
   let invoiceData = {} as InvoiceInterface;
+  let budgetData = {} as BudgetInterface;
 
   data.type = "invoice";
   params = useParams() ?? {};
@@ -63,7 +65,10 @@ const InvoicePdf: React.FC = () => {
     invoiceAux.sum_iva = FormatHelper.RoundNumber(invoiceAux.sum_iva, 2);
     invoiceAux.total = FormatHelper.RoundNumber(invoiceAux.total, 2);
 
+    pdf.item_id = invoiceAux.invoice_id;
+
     setInvoice(invoiceAux);
+    pdf.budget = budgetData;
     pdf.invoice = invoiceAux;
     pdf.work = invoiceAux.work ?? {};
     pdf.customer = invoiceAux.work.customer ?? {};
@@ -73,6 +78,7 @@ const InvoicePdf: React.FC = () => {
 
   useEffect(() => {
     if (download == 1) {
+      document.getElementById('page')?.removeAttribute('hidden');
       FormatHelper.GeneratePDF(
         "factura",
         FormatHelper.FormatZero(invoice.invoice_id)

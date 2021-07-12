@@ -10,6 +10,9 @@ interface BudgetInterface {
   year: number;
   payment: number;
   comment: string;
+  sum_iva: number;
+  sum_base: number;
+  total: number;
   concepts: [Concept];
   action: string;
   work: Work;

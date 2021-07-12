@@ -78,6 +78,7 @@ const GeneratePDF = (type: string, id: string) => {
 
       createPdf.addImage(blob, "PNG", 0, 0, width, height, "test", "MEDIUM", 0);
       createPdf.save(type + " " + year + "-" + id + ".pdf");
+      document.getElementById('page')?.setAttribute('hidden', 'true');
     })
     .catch(function (error: any) {
       console.error("oops, something went wrong!", error);

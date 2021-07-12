@@ -157,8 +157,6 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
     setNewConcept({} as ConceptInterface);
   };
 
-
-
   return (
     <div>
       <form className="ion-padding" onSubmit={onSubmit}>
@@ -265,18 +263,21 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
           ) : (
             ""
           )}
-          <IonLabel>
-            <IonButton
-              className="ion-margin-top customer-delete-button"
-              color="success"
-              onClick={() => {
-                setRenderPDF(true);
-                console.log('Click');
-              }}
-            >
-              PDF
-            </IonButton>
-          </IonLabel>
+          {props.action == "edit" ? (
+            <IonLabel>
+              <IonButton
+                className="ion-margin-top customer-delete-button"
+                color="success"
+                onClick={() => {
+                  setRenderPDF(true);
+                }}
+              >
+                PDF
+              </IonButton>
+            </IonLabel>
+          ) : (
+            ""
+          )}
         </IonItem>
 
         {invoice.concepts && invoice.concepts.length > 0 ? (
