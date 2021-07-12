@@ -1,4 +1,11 @@
-import { IonCard, IonContent, IonIcon, IonItem, IonLabel, IonList } from "@ionic/react";
+import {
+  IonCard,
+  IonContent,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+} from "@ionic/react";
 import { folderOutline } from "ionicons/icons";
 import React from "react";
 import FormatHelper from "../helpers/FormatHelper";
@@ -8,8 +15,10 @@ import BudgetListInterface from "../interfaces/BudgetList";
 const BudgetsWork: React.FC<BudgetListInterface> = (props) => {
   let budgets = props.budgets;
 
+  console.log(budgets);
+
   return (
-    <IonContent>
+    <div>
       <IonItem className="ion-text-center" lines="none" color="primary">
         <IonLabel>Presupuestos</IonLabel>
       </IonItem>
@@ -36,7 +45,7 @@ const BudgetsWork: React.FC<BudgetListInterface> = (props) => {
             ))
           : ""}
       </IonList>
-    </IonContent>
+    </div>
   );
 };
 

@@ -80,7 +80,7 @@ const InvoicePdf: React.FC = () => {
     if (download == 1) {
       document.getElementById('page')?.removeAttribute('hidden');
       FormatHelper.GeneratePDF(
-        "factura",
+        "Factura",
         FormatHelper.FormatZero(invoice.invoice_id)
       );
     }

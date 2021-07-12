@@ -16,7 +16,7 @@ const InvoicesWork: React.FC<InvoiceListInterface> = (props) => {
   let invoices = props.invoices;
 
   return (
-    <IonContent>
+    <div>
       <IonItem className="ion-text-center" lines="none" color="primary">
         <IonLabel>Facturas</IonLabel>
       </IonItem>
@@ -45,7 +45,7 @@ const InvoicesWork: React.FC<InvoiceListInterface> = (props) => {
             ))
           : ""}
       </IonList>
-    </IonContent>
+    </div>
   );
 };
 

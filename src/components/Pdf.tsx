@@ -119,7 +119,7 @@ const Pdf: React.FC<PdfInterface> = (props) => {
   
           <div className="card card-default basic border-0 mx-3 my-0">
             <div className="card-body my-0">
-              <table className="table table-sm table-products table-bordered">
+              <table className="table table-sm table-products table-bordered w100">
                 <thead>
                   <tr>
                     <th className="text-center medium-text w34">Concepto</th>

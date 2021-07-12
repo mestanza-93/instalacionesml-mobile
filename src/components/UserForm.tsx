@@ -130,6 +130,10 @@ const UserForm: React.FC<UserInterface> = (props) => {
             setValue("town", e.detail.value ?? "");
           }}
         ></IonInput>
+      </IonItem>
+
+      <IonItem>
+        <IonIcon slot="start" icon={mapOutline}></IonIcon>
         <IonInput
           value={user.province ?? ""}
           placeholder="Provincia"
