@@ -135,7 +135,10 @@ const Pdf: React.FC<PdfInterface> = (props) => {
                     ? data.concepts.map((concept: any, index: number) => (
                         <tr>
                           <td className="align-middle medium-text">
-                            {concept.concept}
+                            {
+                            concept.concept ? concept.concept.split("\n").map((part: any, key: any) => {
+                                return <div key={key}>{part}</div>;
+                            }) : ''}
                           </td>
                           <td className="text-center align-middle medium-text">
                             {concept.units}
