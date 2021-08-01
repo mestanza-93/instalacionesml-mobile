@@ -5,7 +5,8 @@
   "dependencies": {
     "@apollo/client": "^3.3.12",
     "@apollo/react-hooks": "^4.0.0",
-    "@capacitor/core": "2.4.7",
+    "@capacitor/android": "^2.4.7",
+    "@capacitor/core": "^2.4.7",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
     "@react-pdf/renderer": "^2.0.15",
@@ -72,7 +73,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "2.4.7",
+    "@capacitor/cli": "^2.4.7",
     "@types/dom-to-image": "^2.6.3"
   },
   "description": "Instalaciones ML Mobile"
