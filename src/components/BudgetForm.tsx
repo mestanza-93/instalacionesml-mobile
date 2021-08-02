@@ -2,14 +2,17 @@ import {
   IonAlert,
   IonButton,
   IonCard,
+  IonCol,
   IonDatetime,
   IonFab,
   IonFabButton,
+  IonGrid,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
   IonPopover,
+  IonRow,
   IonSelect,
   IonSelectOption,
   IonTextarea,
@@ -290,74 +293,87 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
         {budget.concepts && budget.concepts.length > 0
           ? budget.concepts.map((concept: any, index: number) => (
               <IonCard>
-                <IonFab vertical="top" horizontal="end">
-                  <IonFabButton
-                    size="small"
-                    color="light"
-                    onClick={() => {
-                      confirm({
-                        header: "Eliminar concepto",
-                        message: "¿Estás seguro?",
-                        buttons: [
-                          "Cancelar",
-                          {
-                            text: "Confirmar",
-                            handler: (d) => {
-                              const newConcepts = JSON.parse(
-                                JSON.stringify(budget.concepts)
-                              );
-                              newConcepts.splice(index, 1);
-                              setValue("concepts", newConcepts);
-                              onSubmit();
-                            },
-                          },
-                        ],
-                      });
-                    }}
-                  >
-                    <IonIcon icon={closeOutline} color="dark" />
-                  </IonFabButton>
-                </IonFab>
-                <IonItem className="concept-text">
-                  <IonTextarea
-                    rows={4}
-                    value={concept.concept ?? ""}
-                    placeholder="Concepto"
-                    onIonChange={(e): void => {
-                      const newConcepts = JSON.parse(
-                        JSON.stringify(budget.concepts)
-                      );
-                      newConcepts[index].concept = e.detail.value ?? "";
-                      setValue("concepts", newConcepts);
-                    }}
-                  ></IonTextarea>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Uds: </IonLabel>
-                  <IonInput
-                    value={concept.units ?? ""}
-                    onIonChange={(e): void => {
-                      const newConcepts = JSON.parse(
-                        JSON.stringify(budget.concepts)
-                      );
-                      newConcepts[index].units = Number(e.detail.value) ?? "";
-                      setValue("concepts", newConcepts);
-                    }}
-                  ></IonInput>
-                  <IonInput
-                    value={concept.base ? concept.base + " €" : ""}
-                    placeholder="Base"
-                    onIonChange={(e): void => {
-                      const newConcepts = JSON.parse(
-                        JSON.stringify(budget.concepts)
-                      );
-                      newConcepts[index].base = Number(
-                        e.detail.value ? e.detail.value.replace("€", "") : ""
-                      );
-                      setValue("concepts", newConcepts);
-                    }}
-                  ></IonInput>
-                </IonItem>
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size="10">
+                      <IonItem className="concept-text">
+                        <IonTextarea
+                          rows={4}
+                          value={concept.concept ?? ""}
+                          placeholder="Concepto"
+                          onIonChange={(e): void => {
+                            const newConcepts = JSON.parse(
+                              JSON.stringify(budget.concepts)
+                            );
+                            newConcepts[index].concept = e.detail.value ?? "";
+                            setValue("concepts", newConcepts);
+                          }}
+                        ></IonTextarea>
+                      </IonItem>
+                    </IonCol>
+                    <IonCol size="2">
+                      <IonFab vertical="top" horizontal="end">
+                        <IonFabButton
+                          size="small"
+                          color="light"
+                          onClick={() => {
+                            confirm({
+                              header: "Eliminar concepto",
+                              message: "¿Estás seguro?",
+                              buttons: [
+                                "Cancelar",
+                                {
+                                  text: "Confirmar",
+                                  handler: (d) => {
+                                    const newConcepts = JSON.parse(
+                                      JSON.stringify(budget.concepts)
+                                    );
+                                    newConcepts.splice(index, 1);
+                                    setValue("concepts", newConcepts);
+                                    onSubmit();
+                                  },
+                                },
+                              ],
+                            });
+                          }}
+                        >
+                          <IonIcon icon={closeOutline} color="dark" />
+                        </IonFabButton>
+                      </IonFab>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonItem lines="none">
+                      <IonLabel>Uds: </IonLabel>
+                      <IonInput
+                        value={concept.units ?? ""}
+                        onIonChange={(e): void => {
+                          const newConcepts = JSON.parse(
+                            JSON.stringify(budget.concepts)
+                          );
+                          newConcepts[index].units =
+                            Number(e.detail.value) ?? "";
+                          setValue("concepts", newConcepts);
+                        }}
+                      ></IonInput>
+                      <IonInput
+                        value={concept.base ? concept.base + " €" : ""}
+                        placeholder="Base"
+                        onIonChange={(e): void => {
+                          const newConcepts = JSON.parse(
+                            JSON.stringify(budget.concepts)
+                          );
+                          newConcepts[index].base = Number(
+                            e.detail.value
+                              ? e.detail.value.replace("€", "")
+                              : ""
+                          );
+                          setValue("concepts", newConcepts);
+                        }}
+                      ></IonInput>
+                    </IonItem>
+                  </IonRow>
+                </IonGrid>
               </IonCard>
             ))
           : ""}

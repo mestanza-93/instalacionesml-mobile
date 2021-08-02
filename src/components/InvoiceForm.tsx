@@ -349,7 +349,7 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
                   </IonRow>
                 
                   <IonRow>
-                    <IonItem>
+                    <IonItem lines="none">
                       <IonLabel>Uds: </IonLabel>
                       <IonInput
                         value={concept.units ?? ""}
