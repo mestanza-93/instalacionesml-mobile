@@ -2,14 +2,18 @@ import {
   IonAlert,
   IonButton,
   IonCard,
+  IonCardHeader,
+  IonCol,
   IonDatetime,
   IonFab,
   IonFabButton,
+  IonGrid,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
   IonPopover,
+  IonRow,
   IonSelect,
   IonSelectOption,
   IonTextarea,
@@ -28,7 +32,7 @@ import {
 } from "ionicons/icons";
 import "../theme/invoice.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import InvoiceModel from "../models/Invoice";
@@ -290,74 +294,89 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
         {invoice.concepts && invoice.concepts.length > 0
           ? invoice.concepts.map((concept: any, index: number) => (
               <IonCard>
-                <IonFab vertical="top" horizontal="end">
-                  <IonFabButton
-                    size="small"
-                    color="light"
-                    onClick={() => {
-                      confirm({
-                        header: "Eliminar concepto",
-                        message: "¿Estás seguro?",
-                        buttons: [
-                          "Cancelar",
-                          {
-                            text: "Confirmar",
-                            handler: (d) => {
-                              const newConcepts = JSON.parse(
-                                JSON.stringify(invoice.concepts)
-                              );
-                              newConcepts.splice(index, 1);
-                              setValue("concepts", newConcepts);
-                              onSubmit();
-                            },
-                          },
-                        ],
-                      });
-                    }}
-                  >
-                    <IonIcon icon={closeOutline} color="dark" />
-                  </IonFabButton>
-                </IonFab>
-                <IonItem className="concept-text">
-                  <IonTextarea
-                    rows={4}
-                    value={concept.concept ?? ""}
-                    placeholder="Concepto"
-                    onIonChange={(e): void => {
-                      const newConcepts = JSON.parse(
-                        JSON.stringify(invoice.concepts)
-                      );
-                      newConcepts[index].concept = e.detail.value ?? "";
-                      setValue("concepts", newConcepts);
-                    }}
-                  ></IonTextarea>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Uds: </IonLabel>
-                  <IonInput
-                    value={concept.units ?? ""}
-                    onIonChange={(e): void => {
-                      const newConcepts = JSON.parse(
-                        JSON.stringify(invoice.concepts)
-                      );
-                      newConcepts[index].units = Number(e.detail.value) ?? "";
-                      setValue("concepts", newConcepts);
-                    }}
-                  ></IonInput>
-                  <IonInput
-                    value={concept.base ? concept.base + " €" : ""}
-                    placeholder="Base"
-                    onIonChange={(e): void => {
-                      const newConcepts = JSON.parse(
-                        JSON.stringify(invoice.concepts)
-                      );
-                      newConcepts[index].base = Number(
-                        e.detail.value ? e.detail.value.replace("€", "") : ""
-                      );
-                      setValue("concepts", newConcepts);
-                    }}
-                  ></IonInput>
-                </IonItem>
+                <IonGrid>
+                  <IonRow>
+                    <IonCol size="10">
+                      <IonItem className="concept-text">
+                        <IonTextarea
+                          rows={4}
+                          value={concept.concept ?? ""}
+                          placeholder="Concepto"
+                          onIonChange={(e): void => {
+                            const newConcepts = JSON.parse(
+                              JSON.stringify(invoice.concepts)
+                            );
+                            newConcepts[index].concept = e.detail.value ?? "";
+                            setValue("concepts", newConcepts);
+                          }}
+                        ></IonTextarea>
+                      </IonItem>
+                    </IonCol>
+                    <IonCol size="2">
+                      <IonFab vertical="top" horizontal="end">
+                        <IonFabButton
+                          size="small"
+                          color="light"
+                          onClick={() => {
+                            confirm({
+                              header: "Eliminar concepto",
+                              message: "¿Estás seguro?",
+                              buttons: [
+                                "Cancelar",
+                                {
+                                  text: "Confirmar",
+                                  handler: (d) => {
+                                    const newConcepts = JSON.parse(
+                                      JSON.stringify(invoice.concepts)
+                                    );
+                                    newConcepts.splice(index, 1);
+                                    setValue("concepts", newConcepts);
+                                    onSubmit();
+                                  },
+                                },
+                              ],
+                            });
+                          }}
+                        >
+                          <IonIcon
+                            icon={closeOutline}
+                            color="dark"
+                            size="small"
+                          />
+                        </IonFabButton>
+                      </IonFab>
+                    </IonCol>
+                  </IonRow>
+                
+                  <IonRow>
+                    <IonItem>
+                      <IonLabel>Uds: </IonLabel>
+                      <IonInput
+                        value={concept.units ?? ""}
+                        onIonChange={(e): void => {
+                          const newConcepts = JSON.parse(
+                            JSON.stringify(invoice.concepts)
+                          );
+                          newConcepts[index].units = Number(e.detail.value) ?? "";
+                          setValue("concepts", newConcepts);
+                        }}
+                      ></IonInput>
+                      <IonInput
+                        value={concept.base ? concept.base + " €" : ""}
+                        placeholder="Base"
+                        onIonChange={(e): void => {
+                          const newConcepts = JSON.parse(
+                            JSON.stringify(invoice.concepts)
+                          );
+                          newConcepts[index].base = Number(
+                            e.detail.value ? e.detail.value.replace("€", "") : ""
+                          );
+                          setValue("concepts", newConcepts);
+                        }}
+                      ></IonInput>
+                    </IonItem>
+                  </IonRow>
+                </IonGrid>
               </IonCard>
             ))
           : ""}
