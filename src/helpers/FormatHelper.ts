@@ -77,7 +77,16 @@ const GeneratePDF = (type: string, id: string) => {
       var height = createPdf.internal.pageSize.getHeight();
 
       createPdf.addImage(blob, "PNG", 0, 0, width, height, "test", "MEDIUM", 0);
-      createPdf.save(type + " " + year + "-" + id + ".pdf");
+
+      let pdfName = type + " " + year + "-" + id + ".pdf";
+
+      if (process.env.NODE_ENV == 'development') {
+        createPdf.save(pdfName);
+      } else {
+        let pdfBlob = createPdf.output();
+        window.open(URL.createObjectURL(pdfBlob));
+      }
+      
       document.getElementById('page')?.setAttribute('hidden', 'true');
     })
     .catch(function (error: any) {
