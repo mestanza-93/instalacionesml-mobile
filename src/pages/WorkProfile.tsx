@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { IonContent } from "@ionic/react";
 import { useParams } from "react-router";
 import Header from "../components/Header";
@@ -86,23 +86,25 @@ const WorkProfile: React.FC = () => {
   }
 
   return (
-    <IonContent>
-      <Header {...header}></Header>
-      <WorkForm {...work}></WorkForm>
-      
-      {invoices.invoices && invoices.invoices.length > 0 ? (
-        <InvoicesWork {...invoices}></InvoicesWork>
-      ) : (
-        ""
-      )}
+    <Fragment>
+      <IonContent>
+        <Header {...header}></Header>
+        <WorkForm {...work}></WorkForm>
 
-      {budgets.budgets && budgets.budgets.length > 0 ? (
-        <BudgetsWork {...budgets}></BudgetsWork>
-      ) : (
-        ""
-      )}
+        {invoices.invoices && invoices.invoices.length > 0 ? (
+          <InvoicesWork {...invoices}></InvoicesWork>
+        ) : (
+          ""
+        )}
+
+        {budgets.budgets && budgets.budgets.length > 0 ? (
+          <BudgetsWork {...budgets}></BudgetsWork>
+        ) : (
+          ""
+        )}
+      </IonContent>
       <Footer workId={id} section="work"></Footer>
-    </IonContent>
+    </Fragment>
   );
 };
 

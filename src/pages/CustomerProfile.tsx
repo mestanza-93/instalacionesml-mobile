@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { IonContent } from "@ionic/react";
 import { useParams } from "react-router";
 import Header from "../components/Header";
@@ -17,8 +17,8 @@ const CustomerProfile: React.FC = () => {
   /**
    * Customer data
    */
-   let header = {} as HeaderInterface;
-   header.title = "Perfil cliente";
+  let header = {} as HeaderInterface;
+  header.title = "Perfil cliente";
 
   let data = {} as CustomerInterface;
   let params = {} as ParamsInterface;
@@ -40,8 +40,8 @@ const CustomerProfile: React.FC = () => {
    * Customer works
    */
   let filters = {} as FilterInterface;
-  filters.sort = 'DATE_DESC';
-  filters.field = 'customer_id';
+  filters.sort = "DATE_DESC";
+  filters.field = "customer_id";
   filters.fieldValue = id;
 
   let dataWorks = {} as WorksListInterface;
@@ -56,12 +56,14 @@ const CustomerProfile: React.FC = () => {
   }
 
   return (
-    <IonContent>
-      <Header {...header}></Header>
-      <CustomerForm {...customer}></CustomerForm>
-      <CustomerWorks {...works}></CustomerWorks>
+    <Fragment>
+      <IonContent>
+        <Header {...header}></Header>
+        <CustomerForm {...customer}></CustomerForm>
+        <CustomerWorks {...works}></CustomerWorks>
+      </IonContent>
       <Footer customerId={id} section="customer"></Footer>
-    </IonContent>
+    </Fragment>
   );
 };
 
