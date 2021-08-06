@@ -43,7 +43,6 @@ const CustomerProfile: React.FC = () => {
   if (Object.keys(dataWorks).length > 0 && Object.keys(works).length === 0) {
     setWorks(dataWorks);
   }
-  
 
   return (
     <Fragment>

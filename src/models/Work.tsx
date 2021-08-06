@@ -45,6 +45,16 @@ const GetWorkById = (id: string) => {
           _id
           name
         }
+        invoices {
+          _id
+          invoice_id
+          date
+        }
+        budgets {
+          _id
+          budget_id
+          date
+        }
       }
     }
   `;

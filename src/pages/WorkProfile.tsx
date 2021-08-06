@@ -26,14 +26,25 @@ const WorkProfile: React.FC = () => {
   header.backName = "Cliente";
 
   let data = {} as WorkInterface;
+  let invoicesData = {} as InvoiceListInterface;
+  let budgetsData = {} as BudgetListInterface;
+
   let params = {} as ParamsInterface;
   params = useParams() ?? {};
-
   let id = params.id ?? null;
+
   const [work, setWork] = useState(data);
-  data = id ? WorkModel.GetWorkById(id) ?? {} : {};
+  const [invoices, setInvoices] = useState(invoicesData);
+  const [budgets, setBudgets] = useState(budgetsData);
+
+  let response = id ? WorkModel.GetWorkById(id) ?? {} : {};
 
   header.backUrl = UrlHelper.MakeUrl("customer", data.customer_id);
+
+  data = response ?? [];
+  invoicesData = response ?? [];
+  budgetsData = response ?? [];
+
 
   /**
    * Initialize form data
@@ -43,45 +54,11 @@ const WorkProfile: React.FC = () => {
     setWork(data);
   }
 
-  /**
-   * Work invoices
-   */
-  let invoicesData = {} as InvoiceListInterface;
-  let filters = {} as FilterInterface;
-  filters.field = "work_id";
-  filters.fieldValue = id;
-
-  const [invoices, setInvoices] = useState(invoicesData);
-  invoicesData = InvoiceModel.GetInvoices(filters) ?? {};
-
-  /**
-   * Initialize list data
-   */
-  if (
-    Object.keys(invoicesData).length > 0 &&
-    Object.keys(invoices).length === 0
-  ) {
+  if (Object.keys(invoicesData).length > 0 && Object.keys(invoices).length === 0) {
     setInvoices(invoicesData);
   }
 
-  /**
-   * Work budgets
-   */
-  let budgetsData = {} as BudgetListInterface;
-  filters = {} as FilterInterface;
-  filters.field = "work_id";
-  filters.fieldValue = id;
-
-  const [budgets, setBudgets] = useState(budgetsData);
-  budgetsData = BudgetModel.GetBudgets(filters) ?? {};
-
-  /**
-   * Initialize list data
-   */
-  if (
-    Object.keys(budgetsData).length > 0 &&
-    Object.keys(budgets).length === 0
-  ) {
+  if (Object.keys(budgetsData).length > 0 && Object.keys(budgets).length === 0) {
     setBudgets(budgetsData);
   }
 
