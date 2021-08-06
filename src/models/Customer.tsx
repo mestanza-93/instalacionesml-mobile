@@ -4,7 +4,7 @@ import FilterInterface from "../interfaces/Filters";
 
 const GetCustomers = (filters: FilterInterface) => {
 
-  var filtersQuery = ModelHelper.GetFilters(filters);
+  let filtersQuery = ModelHelper.GetFilters(filters);
 
   const query = gql`
     {
@@ -32,9 +32,17 @@ const GetCustomers = (filters: FilterInterface) => {
   return customers;
 };
 
-const GetCustomerById = (id: string) => {
+const GetCustomerById = (id: string, works: Boolean) => {
   let customer = [];
   let queryId = ModelHelper.FilterId(id);
+
+  let worksQuery = works ? 
+    `works (sort: DATE_DESC) {
+        _id
+        name
+        date
+      }
+    ` : '';
 
   const query = gql`
     {
@@ -50,6 +58,7 @@ const GetCustomerById = (id: string) => {
         address
         town
         updated_at
+        ${worksQuery}
       }
     }
   `;
