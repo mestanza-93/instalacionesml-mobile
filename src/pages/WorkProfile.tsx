@@ -39,11 +39,11 @@ const WorkProfile: React.FC = () => {
 
   let response = id ? WorkModel.GetWorkById(id) ?? {} : {};
 
-  header.backUrl = UrlHelper.MakeUrl("customer", data.customer_id);
-
   data = response ?? [];
   invoicesData = response ?? [];
   budgetsData = response ?? [];
+
+  header.backUrl = UrlHelper.MakeUrl("customer", data.customer_id);
 
 
   /**

@@ -15,7 +15,7 @@ import WorkInterface from "../interfaces/Work";
 import UrlHelper from "../helpers/UrlHelper";
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import Footer from "./Footer";
+
 
 const WorkForm: React.FC<WorkInterface> = (props) => {
   const buttonTitle = props.action == "edit" ? "Editar" : "Crear";
