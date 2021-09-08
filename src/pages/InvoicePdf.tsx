@@ -78,7 +78,7 @@ const InvoicePdf: React.FC = () => {
 
   useEffect(() => {
     if (download == 1) {
-      document.getElementById('page')?.removeAttribute('hidden');
+      document.getElementById("page")?.removeAttribute("hidden");
       FormatHelper.GeneratePDF(
         "Factura",
         FormatHelper.FormatZero(invoice.invoice_id)
@@ -87,7 +87,7 @@ const InvoicePdf: React.FC = () => {
   }, [download]);
 
   return (
-    <div>
+    <div id="page1">
       <Pdf {...pdf}></Pdf>
     </div>
   );

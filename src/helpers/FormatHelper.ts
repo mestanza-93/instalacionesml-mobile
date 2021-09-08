@@ -1,4 +1,7 @@
 import jspdf from "jspdf";
+import domtoimage from "dom-to-image";
+import { PDFGenerator } from "@ionic-native/pdf-generator";
+import * as fs from 'fs'
 
 const FormatDate = (date: string) => {
   let formatted = "";
@@ -67,48 +70,51 @@ const RoundNumber = (num: number, decimals: number) => {
 
 const GeneratePDF = (type: string, id: string) => {
   let year = new Date().getFullYear();
-  const domtoimage = require("dom-to-image");
-  const html2canvas = require("html2canvas");
 
   let pdfName = type + " " + year + "-" + id + ".pdf";
 
-  html2canvas(
-    document.getElementById("page"), {
-      scale: 3,
-      width: 1280,
-      height: 720,
-    })
-  .then(function (canvas: any) {
-    console.log(canvas);
 
-    var blob = canvas.toDataURL("image/jpeg");
-    var createPdf = new jspdf("p", "mm", "a4");
-    var width = createPdf.internal.pageSize.getWidth();
-    var height = createPdf.internal.pageSize.getHeight();
+  if (process.env.NODE_ENV == 'development') {
+    domtoimage
+      .toPng(document.getElementById("page")!)
+      .then(function (blob: any) {
+        var createPdf = new jspdf("p", "mm", "a4");
+        var width = createPdf.internal.pageSize.getWidth();
+        var height = createPdf.internal.pageSize.getHeight();
 
-    createPdf.addImage(blob, "PNG", 0, 0, width, height, "test", "MEDIUM", 0);
-    createPdf.save(pdfName);
+        createPdf.addImage(blob, "PNG", 0, 0, width, height, "test", "MEDIUM", 0);
+        createPdf.save(pdfName);
 
-    // window.open(blob);
+        document.getElementById("page")?.setAttribute("hidden", "true");
+      })
+      .catch(function (error: any) {
+        console.error("oops, something went wrong!", error);
+      });
+  } else {
+
+    const documentStyles = fs.readFileSync('../theme/pdf.css');
+
+    let divToPrint = document.getElementById("page")!.innerHTML;
+
+    divToPrint = `
+      <style>
+        ${documentStyles}
+      </style>
+    `;
+
+    let options = {
+      documentSize: "A4",
+      type: "share",
+      fileName: pdfName,
+    };
+  
+    PDFGenerator.fromData(divToPrint, options);
 
     document.getElementById("page")?.setAttribute("hidden", "true");
-  });
+  }
 
-  // domtoimage
-  //   .toPng(document.getElementById("page"))
-  //   .then(function (blob: any) {
-  //     var createPdf = new jspdf("p", "mm", "a4");
-  //     var width = createPdf.internal.pageSize.getWidth();
-  //     var height = createPdf.internal.pageSize.getHeight();
 
-  //     createPdf.addImage(blob, "PNG", 0, 0, width, height, "test", "MEDIUM", 0);
-  //     createPdf.save(pdfName);
 
-  //     document.getElementById("page")?.setAttribute("hidden", "true");
-  //   })
-  //   .catch(function (error: any) {
-  //     console.error("oops, something went wrong!", error);
-  //   });
 };
 
 export default {

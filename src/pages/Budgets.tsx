@@ -18,7 +18,7 @@ const Budgets: React.FC = () => {
    */
   let filters = {} as FilterInterface;
   filters.sort = "DATE_DESC";
-  filters.limit = 25;
+  filters.limit = 35;
 
   const [budgets, setBudgets] = useState(data);
   data = BudgetModel.GetBudgets(filters) ?? {};

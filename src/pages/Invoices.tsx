@@ -18,7 +18,7 @@ const Invoices: React.FC = () => {
    */
   let filters = {} as FilterInterface;
   filters.sort = "DATE_DESC";
-  filters.limit = 25;
+  filters.limit = 35;
 
   const [invoices, setInvoices] = useState(data);
   data = InvoiceModel.GetInvoices(filters) ?? {};

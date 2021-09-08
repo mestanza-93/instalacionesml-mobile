@@ -25,12 +25,13 @@ const Pdf: React.FC<PdfInterface> = (props) => {
 
   if (data) {
     return (
-      <div className="card card-default card-page" id="page" hidden={true}>
+      // <div className="card card-default card-page" id="page" hidden={true}>
+      <div className="card card-default card-page" id="page">
         <div className="card-body">
           <div className="card card-default border-0 mx-2 my-0">
             <div className="card-body">
               <img
-                src={process.env.PUBLIC_URL + "/assets/images/invoice_logo.jpeg"}
+                src={"./assets/images/invoice_logo.jpeg"}
                 alt="Instalaciones ML"
                 width="160"
                 height="90"
