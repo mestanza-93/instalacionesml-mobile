@@ -31,7 +31,7 @@ const Pdf: React.FC<PdfInterface> = (props) => {
           <div className="card card-default border-0 mx-2 my-0">
             <div className="card-body">
               <img
-                src={"./assets/images/invoice_logo.jpeg"}
+                src="assets/images/invoice_logo.jpeg"
                 alt="Instalaciones ML"
                 width="160"
                 height="90"
