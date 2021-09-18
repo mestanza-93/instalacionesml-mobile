@@ -1,6 +1,8 @@
+import path from "path";
 import jspdf from "jspdf";
 import domtoimage from "dom-to-image";
 import { PDFGenerator } from "@ionic-native/pdf-generator";
+
 
 const FormatDate = (date: string) => {
   let formatted = "";
@@ -412,12 +414,16 @@ const GeneratePDF = (type: string, id: string) => {
       </style>
     `;
 
+    let assetsPath = path.join(__dirname + "/../public/");
+    assetsPath = assetsPath.replace(new RegExp(/\\/g), '/');
+
     let options = {
       documentSize: "A4",
       type: "share",
       fileName: pdfName,
+      baseUrl: 'file:///' + assetsPath
     };
-  
+      
     PDFGenerator.fromData(divToPrint, options);
 
     document.getElementById("page")?.setAttribute("hidden", "true");

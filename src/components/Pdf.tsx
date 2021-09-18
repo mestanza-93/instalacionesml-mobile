@@ -25,13 +25,12 @@ const Pdf: React.FC<PdfInterface> = (props) => {
 
   if (data) {
     return (
-      // <div className="card card-default card-page" id="page" hidden={true}>
       <div className="card card-default card-page" id="page">
         <div className="card-body">
           <div className="card card-default border-0 mx-2 my-0">
             <div className="card-body">
               <img
-                src="assets/images/invoice_logo.jpeg"
+                src="assets/images/invoice_logo.jpg"
                 alt="Instalaciones ML"
                 width="160"
                 height="90"
@@ -170,8 +169,8 @@ const Pdf: React.FC<PdfInterface> = (props) => {
           </div>
         </div>
   
-        <div className="card-footer bg-transparent border-0 ml-5 mr-5">
-          <div className="card card-default basic border-0 my-0">
+        <div className="card-footer bg-transparent border-0 mx-4">
+          <div className="card card-default basic border-0 mx-3 my-0">
             <table className="table table-sm table-price table-bordered w100">
               <thead>
                 <tr>
@@ -208,7 +207,7 @@ const Pdf: React.FC<PdfInterface> = (props) => {
             </table>
           </div>
   
-          <div className="card card-default basic border-0 my-0">
+          <div className="card card-default basic border-0 mx-3 my-0">
             <table className="table table-sm table-payment table-bordered w100">
               <tbody id="payment-body">
                 {
@@ -257,7 +256,7 @@ const Pdf: React.FC<PdfInterface> = (props) => {
             </table>
           </div>
   
-          <div className="small-text text-center">
+          <div className="small-text text-center mx-3">
             <span>
               Responsable: Identidad:{" "}
               <span id="footer-fullname">
