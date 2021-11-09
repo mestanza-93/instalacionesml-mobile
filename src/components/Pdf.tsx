@@ -19,9 +19,12 @@ const Pdf: React.FC<PdfInterface> = (props) => {
   }
 
   let labels = {
-    title: { invoice: "FACTURA", budget: "PRESUPUESTO" },
-    number: { invoice: "factura", budget: "presupuesto" },
+    title: { invoice: "FACTURA", budget: "PRESUPUESTO", proform: "FACTURA PROFORMA" },
+    number: { invoice: "factura", budget: "presupuesto", proform: "proforma" },
   };
+
+  let title = props.type == 'invoice' ? labels.title.invoice : (props.type == 'budget' ? labels.title.budget : labels.title.proform);
+  let number = props.type == 'invoice' ? labels.number.invoice : (props.type == 'budget' ? labels.number.budget : labels.number.proform);
 
   if (data) {
     return (
@@ -74,16 +77,21 @@ const Pdf: React.FC<PdfInterface> = (props) => {
           </div>
   
           <div className="text-center my-0">
-            <span className="basic invoice-title text-center bold">{props.type == 'budget' ? labels.title.budget : labels.title.invoice}</span>
+            <span className="basic invoice-title text-center bold">{title}</span>
           </div>
   
           <div className="card card-default basic border-0 mx-3 my-0">
-            <div className="card-head my-0">
-              <span className="basic bigtext bold">Número de {props.type == 'budget' ? labels.number.budget : labels.number.invoice}: </span>
-              <span className="basic bigtext" id="year">
-                {FormatHelper.PrintInvoiceTitle(data.year, props.item_id) ?? ""}
-              </span>
-            </div>
+            
+            { props.type != 'proform' ? 
+              <div className="card-head my-0">
+                <span className="basic bigtext bold">Número de {number}: </span>
+                <span className="basic bigtext" id="year">
+                  {FormatHelper.PrintInvoiceTitle(data.year, props.item_id) ?? ""}
+                </span>
+              </div>
+              : (
+                ""
+              )}
             <div className="card-body my-0">
               <table className="table table-borderless table-customer w100">
                 <tbody>

@@ -31,6 +31,13 @@ const Footer: React.FC<any> = (props) => {
           </IonFabButton>
           <IonFabList side="start">
             <IonButton
+              href={UrlHelper.MakeUrl("create-proform-invoice", props.workId)}
+              size="small"
+              color="secondary"
+            >
+              Proforma
+            </IonButton>
+            <IonButton
               href={UrlHelper.MakeUrl("create-budget", props.workId)}
               size="small"
               color="dark"

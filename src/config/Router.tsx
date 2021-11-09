@@ -13,6 +13,9 @@ import Works from "../pages/Works";
 import InvoiceCreate from "../pages/InvoiceCreate";
 import Invoice from "../pages/InvoiceProfile";
 import Invoices from "../pages/Invoices";
+import ProformInvoiceCreate from "../pages/ProformInvoiceCreate";
+import ProformInvoice from "../pages/ProformInvoiceProfile";
+import ProformInvoices from "../pages/ProformInvoices";
 import BudgetCreate from "../pages/BudgetCreate";
 import Budget from "../pages/BudgetProfile";
 import Budgets from "../pages/Budgets";
@@ -33,6 +36,9 @@ const Router: React.FC = () => {
         <Route exact path="/create-invoice/:id" component={InvoiceCreate} />
         <Route exact path="/invoice/:id" component={Invoice} />
         <Route exact path="/invoices" component={Invoices} />
+        <Route exact path="/create-proform-invoice/:id" component={ProformInvoiceCreate} />
+        <Route exact path="/proform-invoice/:id" component={ProformInvoice} />
+        <Route exact path="/proform-invoices" component={ProformInvoices} />
         <Route exact path="/create-budget/:id" component={BudgetCreate} />
         <Route exact path="/budget/:id" component={Budget} />
         <Route exact path="/budgets" component={Budgets} />
