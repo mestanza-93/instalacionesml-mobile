@@ -188,7 +188,7 @@ const GeneratePDF = (type: string, id: string) => {
         }
         
         .border-0 {
-          border: 0 !important;
+          border: 0;
         }
         
         .w100 {
@@ -226,8 +226,6 @@ const GeneratePDF = (type: string, id: string) => {
           word-wrap: break-word;
           background-color: #fff;
           background-clip: border-box;
-          border: 1px solid rgba(0, 0, 0, 0.125);
-          border-radius: 0.25rem;
         }
         
         .card > hr {
@@ -298,7 +296,6 @@ const GeneratePDF = (type: string, id: string) => {
         
         .card-footer {
           padding: 0.75rem 1.25rem;
-          background-color: rgba(0, 0, 0, 0.03);
           border-top: 1px solid rgba(0, 0, 0, 0.125);
         }
         
@@ -379,6 +376,10 @@ const GeneratePDF = (type: string, id: string) => {
         
         .normal {
           font-weight: normal;
+        }
+        
+        td, th {
+          padding: 2px;
         }
         
         .borderless td,

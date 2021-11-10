@@ -221,16 +221,16 @@ const Pdf: React.FC<PdfInterface> = (props) => {
                 {
                   props.type == 'invoice' ? 
                   <tr>
-                  <td className="text-right align-middle bold medium-text w65">
-                    Tipo pago
-                  </td>
-                  <td
-                    className="text-center align-middle medium-text w35"
-                    id="payment"
-                  >
-                    {payment}
-                  </td>
-                </tr>
+                    <td className="text-right align-middle bold medium-text w65">
+                      Tipo pago
+                    </td>
+                    <td
+                      className="text-center align-middle medium-text w35"
+                      id="payment"
+                    >
+                      {payment}
+                    </td>
+                  </tr>
                  : (
                   ""
                 )}
@@ -248,7 +248,7 @@ const Pdf: React.FC<PdfInterface> = (props) => {
                   ""
                 )}
   
-                {data.comment != "" ? (
+                {data.comment ? (
                   <tr>
                     <td
                       className="text-center align-middle medium-text"
