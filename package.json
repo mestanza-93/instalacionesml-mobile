@@ -2,6 +2,9 @@
   "name": "instalacionesml-mobile",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "12.x.x"
+  },
   "dependencies": {
     "@apollo/client": "^3.3.12",
     "@apollo/react-hooks": "^4.0.0",
@@ -55,7 +58,9 @@
     "dev": "NODE_ENV=development react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "gcp-build": "tsc -p .",
+    "deploy": "gcloud app deploy"
   },
   "eslintConfig": {
     "extends": [
