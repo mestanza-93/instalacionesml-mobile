@@ -15,8 +15,6 @@ import BudgetListInterface from "../interfaces/BudgetList";
 const BudgetsWork: React.FC<BudgetListInterface> = (props) => {
   let budgets = props.budgets;
 
-  console.log(budgets);
-
   return (
     <div>
       <IonItem className="ion-text-center" lines="none" color="primary">
