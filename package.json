@@ -60,7 +60,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "gcp-build": "tsc -p .",
-    "deploy": "gcloud app deploy"
+    "deploy": "gcloud app deploy",
+    "build-deploy": "react-scripts test && tsc -p . && gcloud app deploy"
   },
   "eslintConfig": {
     "extends": [
