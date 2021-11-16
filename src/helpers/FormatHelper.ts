@@ -70,6 +70,8 @@ const GeneratePDF = (type: string, id: string) => {
   let year = new Date().getFullYear();
   let pdfName = type + " " + year + "-" + id + ".pdf";
 
+  document.getElementById("page")!.style.marginLeft = '0';
+
   domtoimage
     .toPng(document.getElementById("page")!)
     .then(function (blob: any) {
