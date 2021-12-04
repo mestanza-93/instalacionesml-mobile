@@ -193,6 +193,7 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
         <IonItem>
           <IonIcon slot="start" icon={cashOutline}></IonIcon>
           <IonInput
+            type="number"
             value={budget.iva ?? ""}
             placeholder="% IVA"
             onIonChange={(e): void => {
@@ -282,6 +283,25 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
             ""
           )}
         </IonItem>
+
+        {props.action == "edit" ? (
+          <IonItem className="ion-text-center" lines="none">
+            <IonLabel>
+              <IonButton
+                className="customer-delete-button"
+                color="secondary"
+                onClick={(e: any) => {
+                  e.persist();
+                  setShowPopover({ showPopover: true, event: e });
+                }}
+              >
+                Añadir Concepto
+              </IonButton>
+            </IonLabel>
+          </IonItem>
+        ) : (
+          ""
+        )}
 
         {budget.concepts && budget.concepts.length > 0 ? (
           <IonItem className="ion-text-center" lines="none" color="primary">
@@ -400,13 +420,15 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
           </IonItem>
           <IonItem>
             <IonInput
+              type="number"
               placeholder="Unidades"
               onIonChange={(e): void => {
                 addConcept("units", e.detail.value ?? "");
               }}
             ></IonInput>
             <IonInput
-              placeholder="Base"
+              type="number"
+              placeholder="Precio"
               onIonChange={(e): void => {
                 addConcept("base", e.detail.value ?? "");
               }}
@@ -437,15 +459,6 @@ const BudgetForm: React.FC<BudgetInterface> = (props) => {
         />
       </form>
 
-      {props.action == "edit" ? (
-        <Footer
-          section="budget"
-          popoverState={popoverState}
-          setShowPopover={setShowPopover}
-        ></Footer>
-      ) : (
-        ""
-      )}
       {renderPDF ? <BudgetPDF></BudgetPDF> : null}
     </div>
   );

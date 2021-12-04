@@ -113,6 +113,7 @@ const UserForm: React.FC<UserInterface> = (props) => {
           }}
         ></IonInput>
         <IonInput
+          type="number"
           value={user.postalcode ?? ""}
           placeholder="Código postal"
           onIonChange={(e): void => {

@@ -156,6 +156,7 @@ const CustomerForm: React.FC<CustomerInterface> = (props) => {
           }}
         ></IonInput>
         <IonInput
+          type="number"
           value={customer.postalcode !== 0 ? customer.postalcode : ""}
           placeholder="Código postal"
           onIonChange={(e): void => {

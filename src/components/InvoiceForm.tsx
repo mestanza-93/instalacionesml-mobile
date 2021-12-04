@@ -194,6 +194,7 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
         <IonItem>
           <IonIcon slot="start" icon={cashOutline}></IonIcon>
           <IonInput
+            type="number"
             value={invoice.iva ?? ""}
             placeholder="% IVA"
             onIonChange={(e): void => {
@@ -284,6 +285,25 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
           )}
         </IonItem>
 
+        {props.action == "edit" ? (
+          <IonItem className="ion-text-center" lines="none">
+            <IonLabel>
+              <IonButton
+                className="customer-delete-button"
+                color="secondary"
+                onClick={(e: any) => {
+                  e.persist();
+                  setShowPopover({ showPopover: true, event: e });
+                }}
+              >
+                Añadir Concepto
+              </IonButton>
+            </IonLabel>
+          </IonItem>
+        ) : (
+          ""
+        )}
+
         {invoice.concepts && invoice.concepts.length > 0 ? (
           <IonItem className="ion-text-center" lines="none" color="primary">
             <IonLabel>Conceptos</IonLabel>
@@ -347,7 +367,7 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
                       </IonFab>
                     </IonCol>
                   </IonRow>
-                
+
                   <IonRow>
                     <IonItem lines="none">
                       <IonLabel>Uds: </IonLabel>
@@ -357,7 +377,8 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
                           const newConcepts = JSON.parse(
                             JSON.stringify(invoice.concepts)
                           );
-                          newConcepts[index].units = Number(e.detail.value) ?? "";
+                          newConcepts[index].units =
+                            Number(e.detail.value) ?? "";
                           setValue("concepts", newConcepts);
                         }}
                       ></IonInput>
@@ -369,7 +390,9 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
                             JSON.stringify(invoice.concepts)
                           );
                           newConcepts[index].base = Number(
-                            e.detail.value ? e.detail.value.replace("€", "") : ""
+                            e.detail.value
+                              ? e.detail.value.replace("€", "")
+                              : ""
                           );
                           setValue("concepts", newConcepts);
                         }}
@@ -403,13 +426,15 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
           </IonItem>
           <IonItem>
             <IonInput
+              type="number"
               placeholder="Unidades"
               onIonChange={(e): void => {
                 addConcept("units", e.detail.value ?? "");
               }}
             ></IonInput>
             <IonInput
-              placeholder="Base"
+              type="number"
+              placeholder="Precio"
               onIonChange={(e): void => {
                 addConcept("base", e.detail.value ?? "");
               }}
@@ -439,16 +464,6 @@ const InvoiceForm: React.FC<InvoiceInterface> = (props) => {
           buttons={["OK"]}
         />
       </form>
-
-      {props.action == "edit" ? (
-        <Footer
-          section="invoice"
-          popoverState={popoverState}
-          setShowPopover={setShowPopover}
-        ></Footer>
-      ) : (
-        ""
-      )}
       {renderPDF ? <InvoicePDF></InvoicePDF> : null}
     </div>
   );

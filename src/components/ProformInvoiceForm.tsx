@@ -190,6 +190,7 @@ import {
           <IonItem>
             <IonIcon slot="start" icon={cashOutline}></IonIcon>
             <IonInput
+              type="number"
               value={invoice.iva ?? ""}
               placeholder="% IVA"
               onIonChange={(e): void => {
@@ -279,6 +280,26 @@ import {
               ""
             )}
           </IonItem>
+
+
+        {props.action == "edit" ? (
+          <IonItem className="ion-text-center" lines="none">
+            <IonLabel>
+              <IonButton
+                className="customer-delete-button"
+                color="secondary"
+                onClick={(e: any) => {
+                  e.persist();
+                  setShowPopover({ showPopover: true, event: e });
+                }}
+              >
+                Añadir Concepto
+              </IonButton>
+            </IonLabel>
+          </IonItem>
+        ) : (
+          ""
+        )}
   
           {invoice.concepts && invoice.concepts.length > 0 ? (
             <IonItem className="ion-text-center" lines="none" color="primary">
@@ -399,12 +420,14 @@ import {
             </IonItem>
             <IonItem>
               <IonInput
+                type="number"
                 placeholder="Unidades"
                 onIonChange={(e): void => {
                   addConcept("units", e.detail.value ?? "");
                 }}
               ></IonInput>
               <IonInput
+                type="number"
                 placeholder="Base"
                 onIonChange={(e): void => {
                   addConcept("base", e.detail.value ?? "");
@@ -436,15 +459,6 @@ import {
           />
         </form>
   
-        {props.action == "edit" ? (
-          <Footer
-            section="invoice"
-            popoverState={popoverState}
-            setShowPopover={setShowPopover}
-          ></Footer>
-        ) : (
-          ""
-        )}
         {renderPDF ? <ProformInvoicePDF></ProformInvoicePDF> : null}
       </div>
     );
