@@ -20,6 +20,7 @@ import BudgetCreate from "../pages/BudgetCreate";
 import Budget from "../pages/BudgetProfile";
 import Budgets from "../pages/Budgets";
 import User from "../pages/User";
+import Calendar from "../pages/Calendar";
 import InvoicePdf from "../pages/InvoicePdf";
 import BudgetPdf from "../pages/BudgetPdf";
 
@@ -45,6 +46,7 @@ const Router: React.FC = () => {
         <Route exact path="/user" component={User} />
         <Route exact path="/invoice-pdf/:id" component={InvoicePdf} />
         <Route exact path="/budget-pdf/:id" component={BudgetPdf} />
+        <Route exact path="/calendar/" component={Calendar} />
         <Route exact path="/" render={() => <Redirect to="/customers" />} />
       </IonRouterOutlet>
     </IonReactRouter>

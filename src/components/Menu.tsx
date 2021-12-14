@@ -57,6 +57,10 @@ const Menu: React.FC = () => {
             <IonIcon icon={folderOutline}></IonIcon>
             <IonLabel className="menu-item">Facturas proforma</IonLabel>
           </IonItem>
+          <IonItem routerLink="/calendar">
+            <IonIcon icon={calendarOutline}></IonIcon>
+            <IonLabel className="menu-item">Calendario</IonLabel>
+          </IonItem>
           <IonItem routerLink="/user">
             <IonIcon icon={personOutline}></IonIcon>
             <IonLabel className="menu-item">Mis datos</IonLabel>
