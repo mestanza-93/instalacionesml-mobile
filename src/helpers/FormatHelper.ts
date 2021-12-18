@@ -39,6 +39,23 @@ const FormatDatePdf = (date: string) => {
   return formatted;
 };
 
+const FormatDateCalendar = (date: string) => {
+  let formatted = "";
+  let dateObject = undefined;
+
+  if (date) {
+    dateObject = new Date(date);
+  } else {
+    dateObject = new Date();
+  }
+
+  let day = dateObject.getDay() < 10 ? "0" + dateObject.getDay() : dateObject.getDay();
+
+  formatted = day + '-' + dateObject.getMonth() + '-' + dateObject.getFullYear();
+
+  return formatted;
+};
+
 const FormatCurrency = (currency: number) => {
   let formatted = "";
 
@@ -92,6 +109,7 @@ const GeneratePDF = (type: string, id: string) => {
 export default {
   FormatDate,
   FormatDatePdf,
+  FormatDateCalendar,
   FormatCurrency,
   FormatZero,
   PrintInvoiceTitle,
