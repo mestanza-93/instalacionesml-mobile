@@ -24,7 +24,7 @@ const Calendar: React.FC = () => {
    filters.limit = 35;
  
    const [works, setWorks] = useState(data);
-   data = WorkModel.GetLastWorks(filters) ?? {};
+   data = WorkModel.GetWorksByDate(filters) ?? {};
  
    /**
     * Initialize list data

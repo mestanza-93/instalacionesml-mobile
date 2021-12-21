@@ -1,56 +1,57 @@
 import { IonContent } from "@ionic/react";
 import React from "react";
 import WorksListInterface from "../interfaces/WorksList";
-import CalendarEventsInterface from "../interfaces/CalendarEvents";
+import CalendarEventInterface from "../interfaces/CalendarEvent";
 import FormatHelper from "../helpers/FormatHelper";
 
 import Kalend, { CalendarView } from 'kalend';
 import 'kalend/dist/styles/index.css';
-import { calendarOutline } from "ionicons/icons";
 
 const Calendar: React.FC<WorksListInterface> = (props) => {
   let works = props.works;
-  let calendar = {} as CalendarEventsInterface;
   let id = 0;
+  let events = {};
+
+  
 
   if (works) {
     works.forEach(work => {
       let date = FormatHelper.FormatDateCalendar(work.date);
-      let event = {
-        id: id,
+      let event = {} as CalendarEventInterface;
+      event = {
+        id: work._id,
         startAt: work.date,
         endAt: work.date,
-        timezoneStartAt: 'Europe/Spain',
+        timezoneStartAt: 'Europe/Madrid',
         summary: 'Trabajo',
-        color: 'blue'
+        color: FormatHelper.GetRandomColor()
       };
       id++;
 
       if (date) {
-        if (!calendar.events[date]) {
-          calendar.events[date] = [];
+        if (!events[date]) {
+          events[date] = [];
         }
-        calendar.events[date].push(event);
+        events[date].push(event);
       }
 
     });
   }
 
+  console.log(events);
+
   return (
     <IonContent>
       <Kalend
         onEventClick={() => {
-
+          
         }}
         onNewEventClick={() => {}}
-        events={calendar.events}
+        events={events}
         initialDate={new Date().toISOString()}
         hourHeight={30}
-        initialView={CalendarView.WEEK}
+        initialView={CalendarView.MONTH}
         disabledViews={[CalendarView.DAY]}
-        // onSelectView={onSelectView}
-        // selectedView={selectedView}
-        // onPageChange={onPageChange}
       />
     </IonContent>
   );

@@ -1,5 +1,6 @@
 import jspdf from "jspdf";
 import domtoimage from "dom-to-image";
+import CalendarColors from "../interfaces/CalendarColors";
 
 const FormatDate = (date: string) => {
   let formatted = "";
@@ -50,8 +51,10 @@ const FormatDateCalendar = (date: string) => {
   }
 
   let day = dateObject.getDay() < 10 ? "0" + dateObject.getDay() : dateObject.getDay();
+  let month = dateObject.getMonth() < 10 ? "0" + dateObject.getMonth() : dateObject.getMonth();
+  let year = dateObject.getFullYear();
 
-  formatted = day + '-' + dateObject.getMonth() + '-' + dateObject.getFullYear();
+  formatted = day + '-' + month + '-' + year;
 
   return formatted;
 };
@@ -106,6 +109,14 @@ const GeneratePDF = (type: string, id: string) => {
     });
 };
 
+
+const GetRandomColor = () => {
+   let values = Object.keys(CalendarColors); 
+   let enumKey = values[Math.floor(Math.random() * values.length)]; 
+
+   return CalendarColors[enumKey];
+}
+
 export default {
   FormatDate,
   FormatDatePdf,
@@ -115,4 +126,5 @@ export default {
   PrintInvoiceTitle,
   RoundNumber,
   GeneratePDF,
+  GetRandomColor
 };

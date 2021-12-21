@@ -69,9 +69,15 @@ const GetWorkById = (id: string) => {
 };
 
 
-const GetLastWorks = (filters: FilterInterface) => {
+const GetLastWorks = (filters: FilterInterface, customerData = false) => {
   let result = {} as WorkListInterface;
   let filtersQuery = ModelHelper.GetFilters(filters);
+  let queryCustomer = customerData
+    ? `customer {
+        _id
+        name
+      }`
+    : "";
 
   const query = gql`
     {
@@ -81,6 +87,38 @@ const GetLastWorks = (filters: FilterInterface) => {
         date
         customer_id
         updated_at
+        ${queryCustomer}
+      }
+    }
+  `;
+
+  const { data } = useQuery(query);
+
+  if (data) {
+    result.works = data["WorkMany"] ?? [];
+  }
+
+  return result;
+};
+const GetWorksByDate = (filters: FilterInterface, customerData = true) => {
+  let result = {} as WorkListInterface;
+  let filtersQuery = ModelHelper.GetFilters(filters);
+  let queryCustomer = customerData
+    ? `customer {
+        _id
+        name
+      }`
+    : "";
+
+  const query = gql`
+    {
+      WorkMany ${filtersQuery} {
+        _id
+        name
+        date
+        customer_id
+        updated_at
+        ${queryCustomer}
       }
     }
   `;
@@ -174,5 +212,6 @@ export default {
   CreateWork, 
   UpdateWork,
   DeleteWork,
-  GetLastWorks
+  GetLastWorks,
+  GetWorksByDate
 };
