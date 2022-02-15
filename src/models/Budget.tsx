@@ -20,6 +20,7 @@ const GetBudgetById = (id: string, all: boolean) => {
         name
         lastname
         phone
+        dni
         address
         postalcode
         town

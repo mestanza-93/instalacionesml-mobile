@@ -9,6 +9,7 @@ import UserInterface from "../interfaces/User";
 import InvoiceInterface from "../interfaces/Invoice";
 import FormatHelper from "../helpers/FormatHelper";
 import BudgetInterface from "../interfaces/Budget";
+import CustomerInterface from "../interfaces/Customer";
 
 const InvoicePdf: React.FC = () => {
   let params = {} as ParamsInterface;
@@ -71,7 +72,7 @@ const InvoicePdf: React.FC = () => {
     pdf.budget = budgetData;
     pdf.invoice = invoiceAux;
     pdf.work = invoiceAux.work ?? {};
-    pdf.customer = invoiceAux.work.customer ?? {};
+    pdf.customer = invoiceAux.work && invoiceAux.work.customer ? invoiceAux.work.customer : {} as CustomerInterface;
 
     setDownload(1);
   }
