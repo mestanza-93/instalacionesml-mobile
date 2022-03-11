@@ -5,14 +5,11 @@ import CalendarEventInterface from "../interfaces/CalendarEvent";
 import FormatHelper from "../helpers/FormatHelper";
 
 import Kalend, { CalendarView } from 'kalend';
-import 'kalend/dist/styles/index.css';
 
 const Calendar: React.FC<WorksListInterface> = (props) => {
   let works = props.works;
   let id = 0;
   let events = {};
-
-  
 
   if (works) {
     works.forEach(work => {
@@ -38,20 +35,17 @@ const Calendar: React.FC<WorksListInterface> = (props) => {
     });
   }
 
-  console.log(events);
-
   return (
     <IonContent>
       <Kalend
-        onEventClick={() => {
-          
-        }}
+        onEventClick={() => {}}
         onNewEventClick={() => {}}
         events={events}
         initialDate={new Date().toISOString()}
         hourHeight={30}
         initialView={CalendarView.MONTH}
         disabledViews={[CalendarView.DAY]}
+        onPageChange={() => {}}
       />
     </IonContent>
   );

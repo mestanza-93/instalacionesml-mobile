@@ -7,6 +7,9 @@ import HeaderInterface from "../interfaces/Header";
 import FilterInterface from "../interfaces/Filters";
 import CalendarComponent from "../components/Calendar";
 
+import 'kalend/dist/styles/index.css';
+
+
 const Calendar: React.FC = () => {
   /**
    * Works data

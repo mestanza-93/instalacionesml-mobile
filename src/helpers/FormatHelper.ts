@@ -50,8 +50,11 @@ const FormatDateCalendar = (date: string) => {
     dateObject = new Date();
   }
 
-  let day = dateObject.getDay() < 10 ? "0" + dateObject.getDay() : dateObject.getDay();
-  let month = dateObject.getMonth() < 10 ? "0" + dateObject.getMonth() : dateObject.getMonth();
+  let dayDate = dateObject.getDate();
+  let monthDate = dateObject.getMonth() + 1;
+
+  let day = dayDate < 10 ? "0" + dayDate : dayDate;
+  let month = monthDate < 10 ? "0" + monthDate : monthDate;
   let year = dateObject.getFullYear();
 
   formatted = day + '-' + month + '-' + year;
