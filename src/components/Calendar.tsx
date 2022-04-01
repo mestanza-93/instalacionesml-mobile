@@ -4,8 +4,9 @@ import WorksListInterface from "../interfaces/WorksList";
 import CalendarEventInterface from "../interfaces/CalendarEvent";
 import FormatHelper from "../helpers/FormatHelper";
 
-import Kalend, { CalendarView } from "kalend";
+import Kalend, { CalendarEvent, CalendarView, CALENDAR_VIEW } from "kalend";
 import "kalend/dist/styles/index.css";
+import UrlHelper from "../helpers/UrlHelper";
 
 const Calendar: React.FC<WorksListInterface> = (props) => {
   let works = props.works;
@@ -15,7 +16,6 @@ const Calendar: React.FC<WorksListInterface> = (props) => {
   if (works) {
     works.forEach((work) => {
       let event = {} as CalendarEventInterface;
-
       let eventName = work.customer.name && work.customer.name !== '' ? work.customer.name : (work.name ?? '');
 
       event = {
@@ -26,21 +26,21 @@ const Calendar: React.FC<WorksListInterface> = (props) => {
         summary: eventName,
         color: FormatHelper.GetRandomColor(),
       };
-      id++;
-
       events.push(event);
     });
   }
 
   return (
     <Kalend
-      onEventClick={() => {}}
+      onEventClick={(event: CalendarEvent) => {
+        window.location.href = UrlHelper.MakeUrl("work", event.id);
+      }}
       onNewEventClick={() => {}}
       events={events}
       initialDate={new Date().toISOString()}
       hourHeight={60}
       initialView={CalendarView.MONTH}
-      disabledViews={[CalendarView.DAY]}
+      disabledViews={[CalendarView.DAY, CalendarView.WEEK, CalendarView.THREE_DAYS]}
       onPageChange={() => {}}
       timeFormat={"24"}
       weekDayStart={"Monday"}

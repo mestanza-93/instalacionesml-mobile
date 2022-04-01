@@ -21,7 +21,7 @@ const Calendar: React.FC = () => {
    */
   let filters = {} as FilterInterface;
   filters.sort = "DATE_DESC";
-  filters.limit = 35;
+  filters.limit = 50;
 
   const [works, setWorks] = useState(data);
   data = WorkModel.GetWorksByDate(filters) ?? {};
