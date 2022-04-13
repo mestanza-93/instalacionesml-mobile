@@ -7,6 +7,18 @@ const GetFilters = (filters: FilterInterface) => {
   if (filters.field && filters.fieldValue) {
     if (filters.fieldType == Number) {
       arrayFilters.push(`filter: {${filters.field}: ${filters.fieldValue}}`);
+
+    } else if (filters.fieldType == 'operator' && filters.operators) {
+      let operatorsQuery = "";
+      filters.operators.forEach((operator) => {
+        if (!operatorsQuery) {
+          operatorsQuery += `${operator.field}: "${operator.value}"`;
+        } else {
+          operatorsQuery += ',';
+        }
+      });
+      arrayFilters.push(`filter: {_operators: {${filters.field}: {${operatorsQuery}}}}`);
+
     } else {
       arrayFilters.push(`filter: {${filters.field}: "${filters.fieldValue}"}`);
     }
