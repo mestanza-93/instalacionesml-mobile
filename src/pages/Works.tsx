@@ -18,7 +18,7 @@ const Works: React.FC = () => {
    */
   let filters = {} as FilterInterface;
   filters.sort = "DATE_DESC";
-  filters.limit = 35;
+  filters.limit = 100;
 
   const [works, setWorks] = useState(data);
   data = WorkModel.GetLastWorks(filters) ?? {};
